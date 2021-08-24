@@ -1,52 +1,64 @@
 {
   "products": [
     {
-      "name": "hero Product",
-      "detail": "Lorem ipsum dolor sit amet",
-      "price": "99",
-      "hero": "OMG This just came out today!",
-      "image": "http://placehold.it/940x300/999/CCC"
+      "name": "Wella",
+      "detail": "Color Charm Lightest Ash Blonde Toner",
+      "price": "8.49",
+      "image": "wella.jpg"
     },
     {
-      "name": "Product 1",
-      "detail": "Lorem ipsum dolor sit amet",
-      "price": "99",
-      "info": "This is the latest and greatest product from Derp corp.",
-      "image": "http://placehold.it/300x300/999/CCC"
+      "name": "Idella Labs",
+      "detail": "Original Leave In Treatment",
+      "price": "7.99",
+      "image": "SBS-106001.jpg"
     },
     {
-      "name": "Product 2",
-      "detail": "Lorem ipsum dolor sit amet",
-      "price": "99",
-      "offer": "BOGOF",
-      "image": "http://placehold.it/300x300/999/CCC"
+      "name": "Beyond the Zone",
+      "detail": "Curling Creme",
+      "price": "6.5",
+      "image": "Beyond.jpg"
     },
     {
-      "name": "Product 3",
-      "detail": "Lorem ipsum dolor sit amet",
-      "price": "99",
-      "image": "http://placehold.it/300x300/999/CCC"
+      "name": "Hawaiian Silky",
+      "detail": "14 in 1 Miracle Worker",
+      "price": "14.99",
+      "image": "HawaiianSilky.jpg"
     },
     {
-      "name": "Product 4",
-      "detail": "Lorem ipsum dolor sit amet",
-      "price": "99",
-      "offer": "No srsly GTFO",
-      "image": "http://placehold.it/300x300/999/CCC"
+      "name": "ASP30",
+      "detail": "Quick Dip Powders",
+      "price": "8.79",
+      "image": "ASP30.jpg"
     },
     {
-      "name": "Product 5",
-      "detail": "Lorem ipsum dolor sit amet",
-      "price": "99",
-      "image": "http://placehold.it/300x300/999/CCC"
+      "name": "AGEbeautiful",
+      "detail": "Anti-Aging Permanent Liqui-Creme Hair",
+      "price": "19.99",
+      "image": "AGEbeautiful.jpg"
     },
     {
-      "name": "Product 6",
-      "detail": "Lorem ipsum dolor sit amet",
-      "price": "99",
-      "info": "This is the latest and greatest product from Derp corp.",
-      "offer": "info with offer",
-      "image": "http://placehold.it/300x300/999/CCC"
+      "name": "As I Am",
+      "detail": "Bounce Back Conditioner",
+      "price": "12.49",
+      "image": "AsIAm.jpg"
+    },
+    {
+      "name": "Blond Brilliance",
+      "detail": "Express NINE Level Lightener",
+      "price": "29.99",
+      "image": "BlondB.jpg"
+    },
+    {
+      "name": "ion",
+      "detail": "Color Defense Sulfate Free Shampoo",
+      "price": "15.59",
+      "image": "ION159.jpg"
+    },
+    {
+      "name": "Salon Care",
+      "detail": "20 Volume Creme Developer",
+      "price": "9.96",
+      "image": "SLNCAR60.jpg"
     }
   ]
 }

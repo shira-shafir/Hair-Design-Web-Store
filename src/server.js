@@ -6,8 +6,6 @@ const express = require("express");
 // const redis = require('redis');
 const {v4: uuidv4} = require('uuid');
 
-
-// let userFile = require ("./usersDB.json");
 const productFile = require("./productDB.json");
 
 //cart
@@ -15,7 +13,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const json = require('json');
 const {logDOM} = require("@testing-library/react");
-const {err_code} = require("redis/lib/utils");
+const {err_code, callback_or_emit} = require("redis/lib/utils");
 
 // redis.createClient({host: "127.0.0.1", port: 6379});
 
@@ -35,17 +33,9 @@ app.get("/products",((req, res) => {
     res.status(200).send(productFile);
 }))
 const fs = require('fs');
-const {generateUniqueID} = require("web-vitals");
 const path = require("path");
 
-app.get('/users', (req, res) => {
 
-    // read current file contents
-    const filePath = path.join(process.cwd(), 'usersDB.json');
-    const fileData = fs.readFileSync(filePath);
-    const data = JSON.parse(fileData);
-    res.status(200).json(data);
-});
 
 app.post(`/register`, async (req, res, next) => {
     let user = {id:genarateUuid(),username:req.body.username,password:req.body.password,cart:[],purchases:[],login:[],sessions:[],isAdmin: false};
@@ -53,9 +43,9 @@ app.post(`/register`, async (req, res, next) => {
     const filePath = path.join(process.cwd(), 'usersDB.json');
     const fileData = fs.readFileSync(filePath);
     const data = JSON.parse(fileData);
-    if (user.username === getUsers().username || user.username === undefined ||user.password === undefined ){
-        console.log("error, user exist");
-    }
+    // if (user.username === getUsers().username || user.username === undefined ||user.password === undefined ){
+    //     console.log("error, user exist");
+    // }
     // append the new user
     data.push(user);
 
@@ -65,7 +55,14 @@ app.post(`/register`, async (req, res, next) => {
     res.status(200).json(user);
     }
 );
+app.get('/users', (req, res) => {
 
+    // read current file contents
+    const filePath = path.join(process.cwd(), 'usersDB.json');
+    const fileData = fs.readFileSync(filePath);
+    const data = JSON.parse(fileData);
+    res.status(200).json(data);
+});
 
 
 const getUsers = (filePath) => {
@@ -76,20 +73,20 @@ const getUsers = (filePath) => {
 }
 
 app.post(`/login`,(req, res, next) => {
-    if ("user is connected"){
-        return " "
-    }
-    if ("user doesn't exist"){
-        return ""
-    }
-    if ("there is required data undefined"){
-        return ""
-    }
-    //check user info matches the one in db
-    if ("password incorrect"){
-        return "incorrect password"
-    }
-    // get to it -login data ix סעיף
+//     if ("user is connected"){
+//         return " "
+//     }
+//     if ("user doesn't exist"){
+//         return ""
+//     }
+//     if ("there is required data undefined"){
+//         return ""
+//     }
+//     //check user info matches the one in db
+//     if ("password incorrect"){
+//         return "incorrect password"
+//     }
+//     // get to it -login data ix סעיף
 })
 
 // const getAllTypeAsObj = (type, callback) => {
