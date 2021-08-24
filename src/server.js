@@ -1,14 +1,11 @@
 /* jshint esversion: 6 */
 "use strict";
-import {useState} from "react";
+
 
 const express = require("express");
 // const redis = require('redis');
 const {v4: uuidv4} = require('uuid');
-import * as module from "module";
-import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
-import {stringify} from "uuid";
-import * as path from "path";
+
 
 // let userFile = require ("./usersDB.json");
 const productFile = require("./productDB.json");
@@ -33,25 +30,25 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.json());
 
-app.get("/users",((req, res) => {
-    res.status(200).send(userFile);
-}))
+
 app.get("/products",((req, res) => {
     res.status(200).send(productFile);
 }))
 const fs = require('fs');
+const {generateUniqueID} = require("web-vitals");
+const path = require("path");
 
 app.get('/users', (req, res) => {
 
     // read current file contents
-    const filePath = path.join(process.cwd(), 'users.json');
-    getUsers();
-
+    const filePath = path.join(process.cwd(), 'usersDB.json');
+    const fileData = fs.readFileSync(filePath);
+    const data = JSON.parse(fileData);
     res.status(200).json(data);
 });
 
 app.post(`/register`, async (req, res, next) => {
-    let user = {id:generateUniqueID(),username:req.body.username,password:req.body.password,cart:[],purchases:[],login:[],sessions:[],isAdmin: false};
+    let user = {id:genarateUuid(),username:req.body.username,password:req.body.password,cart:[],purchases:[],login:[],sessions:[],isAdmin: false};
     // read current file contents
     const filePath = path.join(process.cwd(), 'usersDB.json');
     const fileData = fs.readFileSync(filePath);
