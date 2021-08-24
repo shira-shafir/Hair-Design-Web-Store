@@ -8,6 +8,7 @@ const {v4: uuidv4} = require('uuid');
 import * as module from "module";
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import {stringify} from "uuid";
+import * as path from "path";
 
 // let userFile = require ("./usersDB.json");
 const productFile = require("./productDB.json");
@@ -40,33 +41,42 @@ app.get("/products",((req, res) => {
 }))
 const fs = require('fs');
 
+app.get('/users', (req, res) => {
+
+    // read current file contents
+    const filePath = path.join(process.cwd(), 'users.json');
+    getUsers();
+
+    res.status(200).json(data);
+});
+
 app.post(`/register`, async (req, res, next) => {
-    let users = fs.readFile('/userDB.json', 'utf8' , (err, data) => {
-        if (err) {
-            console.error(err)
-            return
-        }
-        console.log(data)
-    })
-
-    for (let i = 0; i < users; i++) {
-        const list = stringify(users);
-
+    let user = {id:generateUniqueID(),username:req.body.username,password:req.body.password,cart:[],purchases:[],login:[],sessions:[],isAdmin: false};
+    // read current file contents
+    const filePath = path.join(process.cwd(), 'usersDB.json');
+    const fileData = fs.readFileSync(filePath);
+    const data = JSON.parse(fileData);
+    if (user.username === getUsers().username || user.username === undefined ||user.password === undefined ){
+        console.log("error, user exist");
     }
-    users.user.push({id:generateUniqueID,username:})
-    // if(req.body.username.valueOf()===undefined||req.body.password.valueOf()===undefined ){
-    //     res.err("undefined");
-    // }
-    //
-    // let id = genarateUuid();
-    // // createUser
-    // //add to db
-    // let user = {id:id,username:req.body.username,password:req.body.password,cart:[],purchases:[],login:[],sessions:[],isAdmin: false};
-    // userFile.append(user);
-    // res.status(200).json(user);
-    }
-)
+    // append the new user
+    data.push(user);
 
+    // write the file back to users.json
+    fs.writeFileSync(filePath, JSON.stringify(data));
+
+    res.status(200).json(user);
+    }
+);
+
+
+
+const getUsers = (filePath) => {
+    const fileData = fs.readFileSync(filePath);
+    const data = JSON.parse(fileData);
+
+    return data;
+}
 
 app.post(`/login`,(req, res, next) => {
     if ("user is connected"){
