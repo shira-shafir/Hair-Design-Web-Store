@@ -1,0 +1,64 @@
+[
+  {
+  "id": "1",
+  "username": "admin",
+  "password": "admin",
+  "cart": [],
+  "purchases":[],
+  "login":[],
+  "sessions":[],
+  "isAdmin": true
+
+  },
+  {
+    "id": "1234567",
+    "username": "example",
+    "password": "aA3",
+    "cart": [],
+    "purchases":[],
+    "login":[],
+    "sessions":[],
+    "isAdmin": false
+
+  },
+  {
+    "id": "1234568",
+    "username": "shira",
+    "password": "1995",
+    "cart": [],
+    "purchases":[],
+    "login":[],
+    "sessions":[],
+    "isAdmin": false
+  },
+  {
+    "id": "1234569",
+    "username": "tal",
+    "password": "danai",
+    "cart": [],
+    "purchases":[],
+    "login":[],
+    "sessions":[],
+    "isAdmin": false
+  },
+  {
+    "id": "1234570",
+    "username": "chen",
+    "password": "harari",
+    "cart": [],
+    "purchases":[],
+    "login":[],
+    "sessions":[],
+    "isAdmin": false
+  },
+  {
+    "id": "1234571",
+    "username": "ohan",
+    "password": "asulin",
+    "cart": [],
+    "purchases":[],
+    "login":[],
+    "sessions":[],
+    "isAdmin": false
+  }
+]
