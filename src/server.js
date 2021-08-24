@@ -1,10 +1,15 @@
 /* jshint esversion: 6 */
 "use strict";
+import {useState} from "react";
+
 const express = require("express");
 // const redis = require('redis');
 const {v4: uuidv4} = require('uuid');
 import * as module from "module";
-const userFile = require ("./usersDB.json");
+import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
+import {stringify} from "uuid";
+
+// let userFile = require ("./usersDB.json");
 const productFile = require("./productDB.json");
 
 //cart
@@ -33,19 +38,32 @@ app.get("/users",((req, res) => {
 app.get("/products",((req, res) => {
     res.status(200).send(productFile);
 }))
+const fs = require('fs');
 
 app.post(`/register`, async (req, res, next) => {
-    
-    if(req.body.username.valueOf()===undefined||req.body.password.valueOf()===undefined ){
-        res.err("undefined");
+    let users = fs.readFile('/userDB.json', 'utf8' , (err, data) => {
+        if (err) {
+            console.error(err)
+            return
+        }
+        console.log(data)
+    })
+
+    for (let i = 0; i < users; i++) {
+        const list = stringify(users);
+
     }
-    
-    let id = genarateUuid();
-    // createUser
-    //add to db
-    let user = {id:id,username:req.body.username,password:req.body.password,cart:[],purchases:[],login:[],sessions:[],isAdmin: false};
-    userFile.append(user);
-    res.status(200).json(user);
+    users.user.push({id:generateUniqueID,username:})
+    // if(req.body.username.valueOf()===undefined||req.body.password.valueOf()===undefined ){
+    //     res.err("undefined");
+    // }
+    //
+    // let id = genarateUuid();
+    // // createUser
+    // //add to db
+    // let user = {id:id,username:req.body.username,password:req.body.password,cart:[],purchases:[],login:[],sessions:[],isAdmin: false};
+    // userFile.append(user);
+    // res.status(200).json(user);
     }
 )
 
@@ -67,14 +85,14 @@ app.post(`/login`,(req, res, next) => {
     // get to it -login data ix סעיף
 })
 
-const getAllTypeAsObj = (type, callback) => {
-    // get all type from redis
-    return redisClient.hgetall(type, (err, results) => {
-        // results is built as user_key + JSON(object)
-        if (err) console.log(err);
-        else callback(getallType(results));// tranform into array of objects
-    });
-};
+// const getAllTypeAsObj = (type, callback) => {
+//     // get all type from redis
+//     return redisClient.hgetall(type, (err, results) => {
+//         // results is built as user_key + JSON(object)
+//         if (err) console.log(err);
+//         else callback(getallType(results));// tranform into array of objects
+//     });
+// };
 
 const getallType = (items) => {
     if (items === undefined || items === null) return items;
