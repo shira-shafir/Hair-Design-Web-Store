@@ -5,7 +5,9 @@
     "password": "admin",
     "cart": [],
     "purchases": [],
-    "logins": [],
+    "logins": [
+      "Wed, 25 Aug 2021 19:26:48 GMT"
+    ],
     "logouts": [],
     "sessions": [],
     "isAdmin": true
@@ -27,7 +29,9 @@
     "password": "1995",
     "cart": [],
     "purchases": [],
-    "logins": [],
+    "logins": [
+      "Wed, 25 Aug 2021 20:36:54 GMT"
+    ],
     "logouts": [],
     "sessions": [],
     "isAdmin": false
@@ -62,28 +66,6 @@
     "id": "1234571",
     "username": "ohan",
     "password": "asulin",
-    "cart": [],
-    "purchases": [],
-    "logins": [],
-    "logouts": [],
-    "sessions": [],
-    "isAdmin": false
-  },
-  {
-    "id": {},
-    "username": "tal1",
-    "password": "ss",
-    "cart": [],
-    "purchases": [],
-    "logins": [],
-    "logouts": [],
-    "sessions": [],
-    "isAdmin": false
-  },
-  {
-    "id": {},
-    "username": "tal11",
-    "password": "ss",
     "cart": [],
     "purchases": [],
     "logins": [],

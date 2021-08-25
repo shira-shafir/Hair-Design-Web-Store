@@ -21,6 +21,7 @@ const productsJson = "./productDB.json";
 // App uses
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 app.use(cors({
     origin: "http://localhost:3000",
     credential: true
@@ -81,6 +82,7 @@ app.post(`/register`, async (req, res, next) => {
         res.status(200).json(user);
     }
 );
+
 /** Login
  *
  */
@@ -158,6 +160,16 @@ app.post("/addtocart/:productname", async (req, res, next) => {
 
 
 });
+
+app.post("/search/:query", async (req, res, next) => {
+    /*
+    TODO If user not connected
+     */
+    let products = await getData(productsJson);
+    res.status(200).send(products.filter(obj => obj.name.startsWith(req.params.query)));
+});
+
+
 // app.post("/removefromcart", (req, res, next) => {
 //     /*
 //     TODO If user not connected
@@ -226,7 +238,7 @@ const getUserByID = async (value) => {
 
 }
 const isLoggedIn = (user) => {
-    // 0 -> Equal number of logins and logouts therefore out , 1 is logged in more is DOS
+    // 0 -> Equal number of logins and logouts therefore out , 1 is logged in more is DOSad
     // TODO ensure when cookie expired to add to logouts..
     let val = user.logins.length - user.logouts.length;
     if (val > 1) {
