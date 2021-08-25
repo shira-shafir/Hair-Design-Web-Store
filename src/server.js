@@ -26,71 +26,101 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.json());
 
-
-app.get("/products",((req, res) => {
+/** get products
+ *
+ */
+app.get("/products", ((req, res) => {
     res.status(200).send(productFile);
 }))
-
-
-app.post(`/register`, async (req, res, next) => {
-    let user = {id:genarateUuid(),username:req.body.username,password:req.body.password,cart:[],purchases:[],login:[],sessions:[],isAdmin: false};
-    // read current file contents
-    if (user.username === undefined ||user.password.valueOf() === undefined ){
-        console.log("error, invalid data");
-        res.status(500).json("ERR");
-        return;
-    }
-    const filePath = path.join(process.cwd(), 'usersDB.json');
-    const fileData = await fs.readFileSync(filePath);
-    const data = JSON.parse(fileData);
-    // append the new user
-    data.push(user);
-
-    // write the file back to users.json
-    fs.writeFileSync(filePath, JSON.stringify(data));
-
-    res.status(200).json(user);
-    }
-);
+/** get users
+ *
+ */
 app.get('/users', (req, res) => {
-
     // read current file contents
     const filePath = path.join(process.cwd(), 'usersDB.json');
     const fileData = fs.readFileSync(filePath);
     const data = JSON.parse(fileData);
     res.status(200).json(data);
 });
+/** Register
+ *
+ */
+app.post(`/register`, async (req, res, next) => {
+        /*
+        TODO If logged in
+         */
+        let user = {
+            id: genarateUuid(),
+            username: req.body.username,
+            password: req.body.password,
+            cart: [],
+            purchases: [],
+            login: [],
+            sessions: [],
+            isAdmin: false
+        };
+        // read current file contents
+        if (user.username === undefined || user.password.valueOf() === undefined) {
+            console.log("error, invalid data");
+            res.status(500).json("ERR");
+            return;
+        }
+        let filePath = path.join(process.cwd(), 'usersDB.json');
+        let fileData = await fs.readFileSync(filePath);
+        let data = JSON.parse(fileData);
+        let usernames = data.map(obj => obj.username);
+        if (usernames.indexOf(user.username) !== -1) {
+            console.log("users exists");
+            res.status(500).json("user exists");
+            return;
+        }
+        // TODO encrypt?
+        // append the new user
+        data.push(user);
 
+        // write the file back to users.json
+        fs.writeFileSync(filePath, JSON.stringify(data));
 
-const getUsers = (filePath) => {
-    const fileData = fs.readFileSync(filePath);
-    const data = JSON.parse(fileData);
-
-    return data;
-}
-
-app.post(`/login`,async (req, res, next) => {
-    let user = {username:req.body.username,password:req.body.password};
-    if (user.username === "admin" && user.password === "admin"){
-        getUsers().find(user => user.isAdmin === true);
-        console.log("isAdmin");
+        res.status(200).json(user);
     }
-
-    // let rawdata = fs.readFileSync(path.resolve(__dirname, 'usersFB.json'));
-    // JSON.parse(rawdata);
+);
+/** Login
+ *
+ */
+app.post(`/login`, async (req, res, next) => {
 //     if ("user is connected"){
 //         return " "
 //     }
-//     if ("user doesn't exist"){
-//         return ""
-//     }
-//     if ("there is required data undefined"){
-//         return ""
-//     }
-//     //check user info matches the one in db
-//     if ("password incorrect"){
-//         return "incorrect password"
-//     }
+    let user = {username: req.body.username, password: req.body.password};
+    if (user.username === undefined ||user.password === undefined ) {
+        console.log("error, invalid data");
+        res.status(500).json("ERR");
+        return;
+    }
+    let filePath = path.join(process.cwd(), 'usersDB.json');
+    // TODO func map field user? (username, supposed Result)
+    let fileData = await fs.readFileSync(filePath);
+    let data = JSON.parse(fileData);
+    let usernames = data.map(obj => obj.username);
+    let index = usernames.indexOf(user.username);
+    if (index === -1) {
+        console.log("users not exists");
+        res.status(500).json("user not exists");
+        return;
+    }
+    let passes = data.map(obj => obj.password);
+    if (passes[index]!== user.password){ // decrypt
+        console.log("wrong password");
+        res.status(500).json("Wrong password");
+        return;
+    }
+    let userInFile = data[index];
+    let date = new Date().toUTCString();
+    userInFile.logins = userInFile.logins.push(date);
+
+    // let rawdata = fs.readFileSync(path.resolve(__dirname, 'usersFB.json'));
+    // JSON.parse(rawdata);
+
 //     // get to it -login data ix סעיף
 })
 
@@ -100,9 +130,17 @@ app.listen(port, () => {
 })
 
 
+const getUsers = (filePath) => {
+    const fileData = fs.readFileSync(filePath);
+    const data = JSON.parse(fileData);
+
+    return data;
+}
 // cookies and sessions
 
-
+const admin = (user) => {
+    getUsers().find(user => user.isAdmin === true);
+}
 //register
 const genarateUuid = () => {
     /*
