@@ -13,13 +13,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const json = require('json');
 const {logDOM} = require("@testing-library/react");
-const {err_code, callback_or_emit} = require("redis/lib/utils");
-
-// redis.createClient({host: "127.0.0.1", port: 6379});
+const fs = require('fs');
+const path = require("path");
 
 const port = process.env.PORT || 3005;
 const app = express();
-// const client = redis.createClient({host: "127.0.0.1", port: 6379});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -32,18 +30,18 @@ app.use(express.json());
 app.get("/products",((req, res) => {
     res.status(200).send(productFile);
 }))
-const fs = require('fs');
-const path = require("path");
-
 
 
 app.post(`/register`, async (req, res, next) => {
+    console.log("Here1");
     let user = {id:genarateUuid(),username:req.body.username,password:req.body.password,cart:[],purchases:[],login:[],sessions:[],isAdmin: false};
+    console.log("Here2");
+    console.log(req.body.username);
     // read current file contents
     const filePath = path.join(process.cwd(), 'usersDB.json');
     const fileData = fs.readFileSync(filePath);
     const data = JSON.parse(fileData);
-    if (user.username.valueOf() === getUsers().username  ||user.password.valueOf() === undefined ){
+    if (user.username === getUsers().username|| user.username === undefined ||user.password.valueOf() === undefined ){
         console.log("error, user exist");
         res.status(500).json("ERR");
         return;
