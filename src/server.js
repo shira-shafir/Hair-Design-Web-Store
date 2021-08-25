@@ -11,17 +11,18 @@ const fs = require('fs');
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const {logDOM} = require("@testing-library/react");
+const bcrypt = require("bcryptjs"); //ADDED
 
 // constants
 const port = process.env.PORT || 3009;
 const app = express();
+const salt = bcrypt.genSaltSync(10);// ADDED
 const usersJson = "./usersDB.json";
 const productsJson = "./productDB.json";
 
 // App uses
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
 app.use(cors({
     origin: "http://localhost:3000",
     credential: true
@@ -47,11 +48,12 @@ app.get('/users', async (req, res) => {
 app.post(`/register`, async (req, res, next) => {
         /*
         TODO If logged in
-         */
+         */const hash = bcrypt.hashSync("B4c0/\/", salt);
+
         let user = {
             id: generateUserId(),
             username: req.body.username,
-            password: req.body.password,
+            password: bcrypt.hashSync(req.body.password, salt), // edited
             cart: [],
             purchases: [],
             logins: [],
@@ -65,8 +67,6 @@ app.post(`/register`, async (req, res, next) => {
             res.status(500).json("ERR");
             return;
         }
-
-        // TODO encrypt?
         // append the new user
         let data = await getData(usersJson);
         let usernames = data.map(obj => obj.username);
@@ -75,6 +75,7 @@ app.post(`/register`, async (req, res, next) => {
             res.status(500).json("user exists");
             return;
         }
+
         data.push(user);
         await updateJSON(usersJson, data);
         // write the file back to users.json
@@ -82,7 +83,6 @@ app.post(`/register`, async (req, res, next) => {
         res.status(200).json(user);
     }
 );
-
 /** Login
  *
  */
@@ -95,19 +95,22 @@ app.post(`/login`, async (req, res, next) => {
     }
     let data = await getData(usersJson);
     let usernames = data.map(obj => obj.username);
+    console.log(usernames);
     let index = usernames.indexOf(user.username);
+    console.log(index);
     if (index === -1) {
         console.log("users not exists");
         res.status(500).json("user not exists");
         return;
     }
     if (isLoggedIn(data[index])) {
+        // TODO : check log out status
         console.log("Already Logged");
-        res.status(500).json("user not exists");
+        res.status(500).json("Already logged in");
         return;
     }
     let passes = data.map(obj => obj.password);
-    if (passes[index] !== user.password) { // decrypt
+    if (!bcrypt.compareSync(user.password,passes[index])) { //edited
         console.log("wrong password");
         res.status(500).json("Wrong password");
         return;
@@ -150,7 +153,7 @@ app.post("/addtocart/:productname", async (req, res, next) => {
     let products = await getData(productsJson);
 
     let names = products.map(obj => obj.name);
-    let index = names.indexOf(req.params.name);
+    let index = names.indexOf(req.params.productname);
     if (index === -1) {
         res.status(500).json("Product not found");
         return;
@@ -158,9 +161,7 @@ app.post("/addtocart/:productname", async (req, res, next) => {
     // get user by id (stored somewhere)
     let cart = users
 
-
 });
-
 app.post("/search/:query", async (req, res, next) => {
     /*
     TODO If user not connected
@@ -168,8 +169,6 @@ app.post("/search/:query", async (req, res, next) => {
     let products = await getData(productsJson);
     res.status(200).send(products.filter(obj => obj.name.startsWith(req.params.query)));
 });
-
-
 // app.post("/removefromcart", (req, res, next) => {
 //     /*
 //     TODO If user not connected
@@ -238,7 +237,7 @@ const getUserByID = async (value) => {
 
 }
 const isLoggedIn = (user) => {
-    // 0 -> Equal number of logins and logouts therefore out , 1 is logged in more is DOSad
+    // 0 -> Equal number of logins and logouts therefore out , 1 is logged in more is DOS
     // TODO ensure when cookie expired to add to logouts..
     let val = user.logins.length - user.logouts.length;
     if (val > 1) {

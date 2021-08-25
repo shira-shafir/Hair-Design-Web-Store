@@ -9,22 +9,22 @@ function Login() {
 
 
     const login = async () => {
-            let user = {
-               username: username,
-                password: password,
-                rememberMe: rememberMe
-            };
+        let user = {
+            username: username,
+            password: password,
+            rememberMe: rememberMe
+        };
 
-            let response = await fetch('http://localhost:3009/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(user)
-            });
+        let response = await fetch('http://localhost:3009/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(user)
+        });
 
-            //todo: handle response status code
-            // for example, if user is connected we want to change the current page from login to home(?)
+        //todo: handle response status code
+        // for example, if user is connected we want to change the current page from login to home(?)
 
 
     }
