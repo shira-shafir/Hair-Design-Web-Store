@@ -72,7 +72,15 @@ const getUsers = (filePath) => {
     return data;
 }
 
-app.post(`/login`,(req, res, next) => {
+app.post(`/login`,async (req, res, next) => {
+    let user = {username:req.body.username,password:req.body.password};
+    if (user.username === "admin" && user.password === "admin"){
+        getUsers().find(user => user.isAdmin === true);
+        console.log("isAdmin");
+    }
+
+    // let rawdata = fs.readFileSync(path.resolve(__dirname, 'usersFB.json'));
+    // JSON.parse(rawdata);
 //     if ("user is connected"){
 //         return " "
 //     }
