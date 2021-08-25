@@ -5,7 +5,7 @@
 const express = require("express");
 // const redis = require('redis');
 const {v4: uuidv4} = require('uuid');
-
+const loginPage = require('./loginPage');
 const productFile = require("./productDB.json");
 
 //cart
@@ -115,9 +115,18 @@ app.post(`/login`, async (req, res, next) => {
         return;
     }
     let userInFile = data[index];
+
     let date = new Date().toUTCString();
+    if (userInFile.logins === undefined){
+        userInFile.logins = [date];
+    }
     userInFile.logins = userInFile.logins.push(date);
 
+    data[index] = userInFile;
+    fs.writeFileSync(filePath,JSON.stringify(date));
+    userInFile.password = undefined;
+    res.status(200).json(userInFile);
+    console.log("user logged in");
     // let rawdata = fs.readFileSync(path.resolve(__dirname, 'usersFB.json'));
     // JSON.parse(rawdata);
 
