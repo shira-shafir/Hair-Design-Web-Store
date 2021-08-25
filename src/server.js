@@ -33,19 +33,16 @@ app.get("/products",((req, res) => {
 
 
 app.post(`/register`, async (req, res, next) => {
-    console.log("Here1");
     let user = {id:genarateUuid(),username:req.body.username,password:req.body.password,cart:[],purchases:[],login:[],sessions:[],isAdmin: false};
-    console.log("Here2");
-    console.log(req.body.username);
     // read current file contents
-    const filePath = path.join(process.cwd(), 'usersDB.json');
-    const fileData = fs.readFileSync(filePath);
-    const data = JSON.parse(fileData);
-    if (user.username === getUsers().username|| user.username === undefined ||user.password.valueOf() === undefined ){
-        console.log("error, user exist");
+    if (user.username === undefined ||user.password.valueOf() === undefined ){
+        console.log("error, invalid data");
         res.status(500).json("ERR");
         return;
     }
+    const filePath = path.join(process.cwd(), 'usersDB.json');
+    const fileData = await fs.readFileSync(filePath);
+    const data = JSON.parse(fileData);
     // append the new user
     data.push(user);
 
