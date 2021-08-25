@@ -5,8 +5,8 @@
     "password": "admin",
     "cart": [],
     "purchases": [],
-    "login": [],
-    "logout": [],
+    "logins": [],
+    "logouts": [],
     "sessions": [],
     "isAdmin": true
   },
@@ -16,8 +16,8 @@
     "password": "aA3",
     "cart": [],
     "purchases": [],
-    "login": [],
-    "logout": [],
+    "logins": [],
+    "logouts": [],
     "sessions": [],
     "isAdmin": false
   },
@@ -27,8 +27,8 @@
     "password": "1995",
     "cart": [],
     "purchases": [],
-    "login": [],
-    "logout": [],
+    "logins": [],
+    "logouts": [],
     "sessions": [],
     "isAdmin": false
   },
@@ -38,8 +38,12 @@
     "password": "danai",
     "cart": [],
     "purchases": [],
-    "login": [],
-    "logout": [],
+    "logins": [
+      "Wed, 25 Aug 2021 17:08:37 GMT",
+      "Wed, 25 Aug 2021 17:08:38 GMT",
+      "Wed, 25 Aug 2021 17:08:40 GMT"
+    ],
+    "logouts": [],
     "sessions": [],
     "isAdmin": false
   },
@@ -49,8 +53,8 @@
     "password": "harari",
     "cart": [],
     "purchases": [],
-    "login": [],
-    "logout": [],
+    "logins": [],
+    "logouts": [],
     "sessions": [],
     "isAdmin": false
   },
@@ -60,8 +64,30 @@
     "password": "asulin",
     "cart": [],
     "purchases": [],
-    "login": [],
-    "logout": [],
+    "logins": [],
+    "logouts": [],
+    "sessions": [],
+    "isAdmin": false
+  },
+  {
+    "id": {},
+    "username": "tal1",
+    "password": "ss",
+    "cart": [],
+    "purchases": [],
+    "logins": [],
+    "logouts": [],
+    "sessions": [],
+    "isAdmin": false
+  },
+  {
+    "id": {},
+    "username": "tal11",
+    "password": "ss",
+    "cart": [],
+    "purchases": [],
+    "logins": [],
+    "logouts": [],
     "sessions": [],
     "isAdmin": false
   }

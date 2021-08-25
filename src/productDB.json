@@ -1,158 +1,158 @@
- [
-    {
-      "name": "Wella",
-      "detail": "Color Charm Lightest Ash Blonde Toner",
-      "price": "8.49",
-      "image": "wella.jpg"
-    },
-    {
-      "name": "Idella Labs",
-      "detail": "Original Leave In Treatment",
-      "price": "7.99",
-      "image": "SBS-106001.jpg"
-    },
-    {
-      "name": "Beyond the Zone",
-      "detail": "Curling Creme",
-      "price": "6.5",
-      "image": "Beyond.jpg"
-    },
-    {
-      "name": "Hawaiian Silky",
-      "detail": "14 in 1 Miracle Worker",
-      "price": "14.99",
-      "image": "HawaiianSilky.jpg"
-    },
-    {
-      "name": "ASP30",
-      "detail": "Quick Dip Powders",
-      "price": "8.79",
-      "image": "ASP30.jpg"
-    },
-    {
-      "name": "AGEbeautiful",
-      "detail": "Anti-Aging Permanent Liqui-Creme Hair",
-      "price": "19.99",
-      "image": "AGEbeautiful.jpg"
-    },
-    {
-      "name": "As I Am",
-      "detail": "Bounce Back Conditioner",
-      "price": "12.49",
-      "image": "AsIAm.jpg"
-    },
-    {
-      "name": "Blond Brilliance",
-      "detail": "Express NINE Level Lightener",
-      "price": "29.99",
-      "image": "BlondB.jpg"
-    },
-    {
-      "name": "ion",
-      "detail": "Color Defense Sulfate Free Shampoo",
-      "price": "15.59",
-      "image": "ION159.jpg"
-    },
-    {
-      "name": "Salon Care",
-      "detail": "20 Volume Creme Developer",
-      "price": "9.96",
-      "image": "SLNCAR60.jpg"
-    },
-    {
-      "name": "Arctic Mist Diluter",
-      "detail": "Diluter Designed to Be Mixed",
-      "price": "16.99",
-      "image": "SBS-222325.jpg"
-    },
-    {
-      "name": "Reshma Beauty",
-      "detail": "Henna Semi Permanent Hair Color",
-      "price": "8.39",
-      "image": "RESHMA1.jpg"
-    },
-    {
-      "name": "Beautiful Collection",
-      "detail": "Semi Permanent Moisturizing Hair Color",
-      "price": "8.79",
-      "image": "CLAIRL15.jpg"
-    },
-    {
-      "name": "Shimmer Lights",
-      "detail": "Conditioning Purple Shampoo",
-      "price": "10.89",
-      "image": "CLAIRL3.jpg"
-    },
-    {
-      "name": "Bedhead by TiGi",
-      "detail": "Recovery Shampoo",
-      "price": "30.19",
-      "image": "SBS-007240.jpg"
-    },
-    {
-      "name": "Infusium 23",
-      "detail": "Original Leave In Treatment",
-      "price": "7.99",
-      "image": "SBS-106001.jpg"
-    },
-    {
-      "name": "Ecoco",
-      "detail": "Krystal Styling Gel",
-      "price": "12.49",
-      "image": "SBS-483116.jpg"
-    },
-    {
-      "name": "Waves",
-      "detail": "Coconut CoWash 32oz",
-      "price": "16.99",
-      "image": "SBS-005437.jpg"
-    },
-    {
-      "name": "Novex",
-      "detail": "Keratin Deep Conditioning Treatment",
-      "price": "17.69",
-      "image": "SBS-478482.jpg"
-    },
-    {
-      "name": "Cantu",
-      "detail": "Strengthening Styling Gel",
-      "price": "6.39",
-      "image": "SBS-005454.jpg"
-    },
-    {
-      "name": "Long & Healthy",
-      "detail": "Deep Moisture Conditioner with Pomegranate",
-      "price": "15.59",
-      "image": "SBS-623625.jpg"
-    },
-    {
-      "name": "Curlessence",
-      "detail": "Moisturizing Curl Activator",
-      "price": "5.47",
-      "image": "SBS-607266.jpg"
-    },
-    {
-      "name": "Beyond the Zone",
-      "detail": "Curling Creme",
-      "price": "7.29",
-      "image": "BTZ10.jpg"
-    },
-    {
-      "name": "Proclaim",
-      "detail": "Coconut Oil Anti-Breakage Shampoo",
-      "price": "9.39",
-      "image": "SBS-631648.jpg"
-    },
-    {
-      "name": "Volumax",
-      "detail": "Volumizing Gel",
-      "price": "10.39",
-      "image": "SBS-623319.jpg"
-    },
-    {
-      "name": "4+4 by TRESemme",
-      "detail": "Styling Glaze",
-      "price": "12.39",
-      "image": "SBS-125222.jpg"
-    }
-  ]
+[
+  {
+    "name": "Wella",
+    "detail": "Color Charm Lightest Ash Blonde Toner",
+    "price": "8.49",
+    "image": "wella.jpg"
+  },
+  {
+    "name": "Idella Labs",
+    "detail": "Original Leave In Treatment",
+    "price": "7.99",
+    "image": "SBS-106001.jpg"
+  },
+  {
+    "name": "Beyond the Zone",
+    "detail": "Curling Creme",
+    "price": "6.5",
+    "image": "Beyond.jpg"
+  },
+  {
+    "name": "Hawaiian Silky",
+    "detail": "14 in 1 Miracle Worker",
+    "price": "14.99",
+    "image": "HawaiianSilky.jpg"
+  },
+  {
+    "name": "ASP30",
+    "detail": "Quick Dip Powders",
+    "price": "8.79",
+    "image": "ASP30.jpg"
+  },
+  {
+    "name": "AGEbeautiful",
+    "detail": "Anti-Aging Permanent Liqui-Creme Hair",
+    "price": "19.99",
+    "image": "AGEbeautiful.jpg"
+  },
+  {
+    "name": "As I Am",
+    "detail": "Bounce Back Conditioner",
+    "price": "12.49",
+    "image": "AsIAm.jpg"
+  },
+  {
+    "name": "Blond Brilliance",
+    "detail": "Express NINE Level Lightener",
+    "price": "29.99",
+    "image": "BlondB.jpg"
+  },
+  {
+    "name": "ion",
+    "detail": "Color Defense Sulfate Free Shampoo",
+    "price": "15.59",
+    "image": "ION159.jpg"
+  },
+  {
+    "name": "Salon Care",
+    "detail": "20 Volume Creme Developer",
+    "price": "9.96",
+    "image": "SLNCAR60.jpg"
+  },
+  {
+    "name": "Arctic Mist Diluter",
+    "detail": "Diluter Designed to Be Mixed",
+    "price": "16.99",
+    "image": "SBS-222325.jpg"
+  },
+  {
+    "name": "Reshma Beauty",
+    "detail": "Henna Semi Permanent Hair Color",
+    "price": "8.39",
+    "image": "RESHMA1.jpg"
+  },
+  {
+    "name": "Beautiful Collection",
+    "detail": "Semi Permanent Moisturizing Hair Color",
+    "price": "8.79",
+    "image": "CLAIRL15.jpg"
+  },
+  {
+    "name": "Shimmer Lights",
+    "detail": "Conditioning Purple Shampoo",
+    "price": "10.89",
+    "image": "CLAIRL3.jpg"
+  },
+  {
+    "name": "Bedhead by TiGi",
+    "detail": "Recovery Shampoo",
+    "price": "30.19",
+    "image": "SBS-007240.jpg"
+  },
+  {
+    "name": "Infusium 23",
+    "detail": "Original Leave In Treatment",
+    "price": "7.99",
+    "image": "SBS-106001.jpg"
+  },
+  {
+    "name": "Ecoco",
+    "detail": "Krystal Styling Gel",
+    "price": "12.49",
+    "image": "SBS-483116.jpg"
+  },
+  {
+    "name": "Waves",
+    "detail": "Coconut CoWash 32oz",
+    "price": "16.99",
+    "image": "SBS-005437.jpg"
+  },
+  {
+    "name": "Novex",
+    "detail": "Keratin Deep Conditioning Treatment",
+    "price": "17.69",
+    "image": "SBS-478482.jpg"
+  },
+  {
+    "name": "Cantu",
+    "detail": "Strengthening Styling Gel",
+    "price": "6.39",
+    "image": "SBS-005454.jpg"
+  },
+  {
+    "name": "Long & Healthy",
+    "detail": "Deep Moisture Conditioner with Pomegranate",
+    "price": "15.59",
+    "image": "SBS-623625.jpg"
+  },
+  {
+    "name": "Curlessence",
+    "detail": "Moisturizing Curl Activator",
+    "price": "5.47",
+    "image": "SBS-607266.jpg"
+  },
+  {
+    "name": "Beyond the Zone",
+    "detail": "Curling Creme",
+    "price": "7.29",
+    "image": "BTZ10.jpg"
+  },
+  {
+    "name": "Proclaim",
+    "detail": "Coconut Oil Anti-Breakage Shampoo",
+    "price": "9.39",
+    "image": "SBS-631648.jpg"
+  },
+  {
+    "name": "Volumax",
+    "detail": "Volumizing Gel",
+    "price": "10.39",
+    "image": "SBS-623319.jpg"
+  },
+  {
+    "name": "4+4 by TRESemme",
+    "detail": "Styling Glaze",
+    "price": "12.39",
+    "image": "SBS-125222.jpg"
+  }
+]

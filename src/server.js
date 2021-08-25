@@ -1,46 +1,45 @@
 /* jshint esversion: 6 */
 "use strict";
 
-
+// imports
 const express = require("express");
-// const redis = require('redis');
 const {v4: uuidv4} = require('uuid');
-const loginPage = require('./loginPage');
-const productFile = require("./productDB.json");
-
-//cart
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const json = require('json');
-const {logDOM} = require("@testing-library/react");
 const fs = require('fs');
 const path = require("path");
+const {logDOM} = require("@testing-library/react");
 
-const port = process.env.PORT || 3005;
+// constants
+const port = process.env.PORT || 3009;
 const app = express();
+const usersJson = "./usersDB.json";
+const productsJson = "./productDB.json";
 
+// App uses
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors({
+    origin: "http://localhost:3000",
+    credential: true
+}));
+
 // app."cors"
 // app.use.cookies
 
-app.use(express.json());
 
 /** get products
  *
  */
-app.get("/products", ((req, res) => {
-    res.status(200).send(productFile);
+app.get("/products", (async (req, res) => {
+    res.status(200).send(await getData(usersJson));
 }))
 /** get users
  *
  */
-app.get('/users', (req, res) => {
-    // read current file contents
-    const filePath = path.join(process.cwd(), 'usersDB.json');
-    const fileData = fs.readFileSync(filePath);
-    const data = JSON.parse(fileData);
-    res.status(200).json(data);
+app.get('/users', async (req, res) => {
+    res.status(200).json(await getData(usersJson));
 });
 /** Register
  *
@@ -50,12 +49,13 @@ app.post(`/register`, async (req, res, next) => {
         TODO If logged in
          */
         let user = {
-            id: genarateUuid(),
+            id: generateUserId(),
             username: req.body.username,
             password: req.body.password,
             cart: [],
             purchases: [],
-            login: [],
+            logins: [],
+            logouts: [],
             sessions: [],
             isAdmin: false
         };
@@ -65,21 +65,19 @@ app.post(`/register`, async (req, res, next) => {
             res.status(500).json("ERR");
             return;
         }
-        let filePath = path.join(process.cwd(), 'usersDB.json');
-        let fileData = await fs.readFileSync(filePath);
-        let data = JSON.parse(fileData);
+
+        // TODO encrypt?
+        // append the new user
+        let data = await getData(usersJson);
         let usernames = data.map(obj => obj.username);
         if (usernames.indexOf(user.username) !== -1) {
             console.log("users exists");
             res.status(500).json("user exists");
             return;
         }
-        // TODO encrypt?
-        // append the new user
         data.push(user);
-
+        await updateJSON(usersJson, data);
         // write the file back to users.json
-        fs.writeFileSync(filePath, JSON.stringify(data));
 
         res.status(200).json(user);
     }
@@ -92,15 +90,13 @@ app.post(`/login`, async (req, res, next) => {
 //         return " "
 //     }
     let user = {username: req.body.username, password: req.body.password};
-    if (user.username === undefined ||user.password === undefined || user.username.length === 0 || user.password.length ===  0) {
+    if (user.username === undefined || user.password === undefined || user.username.length === 0 || user.password.length === 0) {
         console.log("error, invalid data");
         res.status(500).json("ERR");
         return;
     }
-    let filePath = path.join(process.cwd(), 'usersDB.json');
     // TODO func map field user? (username, supposed Result)
-    let fileData = await fs.readFileSync(filePath);
-    let data = JSON.parse(fileData);
+    let data = await getData(usersJson);
     let usernames = data.map(obj => obj.username);
     let index = usernames.indexOf(user.username);
     if (index === -1) {
@@ -109,57 +105,99 @@ app.post(`/login`, async (req, res, next) => {
         return;
     }
     let passes = data.map(obj => obj.password);
-    if (passes[index]!== user.password){ // decrypt
+    if (passes[index] !== user.password) { // decrypt
         console.log("wrong password");
         res.status(500).json("Wrong password");
         return;
     }
     let userInFile = data[index];
-
     let date = new Date().toUTCString();
-    if (userInFile.logins === undefined){
-        userInFile.logins = [date];
+    let temp;
+    if (userInFile.logins === undefined) {
+        temp = [date];
     } else {
         userInFile.logins.push(date);
+        temp = userInFile.logins;
     }
-    userInFile.logins = userInFile.logins.push(date);
-
-    data[index] = userInFile;
-    fs.writeFileSync(filePath,JSON.stringify(date));
+    await updateInJSON(usersJson, index, "logins", temp);
     userInFile.password = undefined;
     res.status(200).json(userInFile);
     console.log("user logged in");
-    // let rawdata = fs.readFileSync(path.resolve(__dirname, 'usersFB.json'));
-    // JSON.parse(rawdata);
-
-//     // get to it -login data ix סעיף
-})
-
-
+});
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);
-})
+});
 
-
-const getUsers = (filePath) => {
-    const fileData = fs.readFileSync(filePath);
-    const data = JSON.parse(fileData);
-
-    return data;
-}
-// cookies and sessions
-
-const admin = (user) => {
-    getUsers().find(user => user.isAdmin === true);
-}
-//register
-const genarateUuid = () => {
+app.post("/addtocart/:productname", async (req, res, next) => {
     /*
-    temp = uuid4()
-    check if exists
-    if does -> temp = uuid4()
-    else -> return temp
+    TODO If user not connected
      */
-    return uuidv4();
-}
+    let products = await getData(productsJson);
+    let names = products.map(obj => obj.name);
+    let index = names.indexOf(req.params.name);
+    if (index === -1) {
+        res.status(500).json("Product not found");
+    }
 
+
+});
+// app.post("/removefromcart", (req, res, next) => {
+//     /*
+//     TODO If user not connected
+//      */
+//
+//
+//
+//
+//
+//
+// });
+// app.post("/getusercart/:userid", (req, res, next) => {
+//     /*
+//     TODO If user not connected
+//      */
+//
+//
+//
+//
+//
+//
+// });
+
+
+const getData = async (fileJson) => {
+    let filePath = path.join(process.cwd(), fileJson);
+    let fileData = await fs.readFileSync(filePath);
+    return JSON.parse(fileData);
+};
+// cookies and sessions
+const isAdmin = async (username) => {
+    let users = await getData(usersJson);
+    let usernames = users.map(obj => obj.username);
+    let index = usernames.indexOf(username);
+    return users[index].isAdmin;
+};
+const generateUserId = async () => {
+    let data = await getData(usersJson);
+    let data1 = data.map(obj => obj.id);
+    let temp = uuidv4();
+    while (data1.indexOf(temp) !== -1) {
+        temp = uuidv4();
+    }
+    return temp;
+};
+const updateInJSON = async (fileJson, index, field, value) => {
+    let data = await getData(fileJson);
+    let objToChange = data[index];
+    objToChange[field] = value;
+    data[index] = objToChange;
+    let filePath = path.join(process.cwd(), fileJson);
+    await fs.writeFileSync(filePath, JSON.stringify(data));
+}
+const updateJSON = async (fileJson, value) => {
+    let filePath = path.join(process.cwd(), fileJson);
+    await fs.writeFileSync(filePath, JSON.stringify(value));
+}
+const isLoggedIn = (user) => {
+    return user.logins.length - user.logouts.length === 1
+}
