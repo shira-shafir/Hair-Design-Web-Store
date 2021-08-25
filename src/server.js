@@ -92,7 +92,7 @@ app.post(`/login`, async (req, res, next) => {
 //         return " "
 //     }
     let user = {username: req.body.username, password: req.body.password};
-    if (user.username === undefined ||user.password === undefined ) {
+    if (user.username === undefined ||user.password === undefined || user.username.length === 0 || user.password.length ===  0) {
         console.log("error, invalid data");
         res.status(500).json("ERR");
         return;
@@ -119,6 +119,8 @@ app.post(`/login`, async (req, res, next) => {
     let date = new Date().toUTCString();
     if (userInFile.logins === undefined){
         userInFile.logins = [date];
+    } else {
+        userInFile.logins.push(date);
     }
     userInFile.logins = userInFile.logins.push(date);
 
