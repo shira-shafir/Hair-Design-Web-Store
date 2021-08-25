@@ -43,7 +43,7 @@ app.post(`/register`, async (req, res, next) => {
     const filePath = path.join(process.cwd(), 'usersDB.json');
     const fileData = fs.readFileSync(filePath);
     const data = JSON.parse(fileData);
-    if (user.username === getUsers().username || user.username === undefined ||user.password === undefined ){
+    if (user.username.valueOf() === getUsers().username  ||user.password.valueOf() === undefined ){
         console.log("error, user exist");
         res.status(500).json("ERR");
         return;
