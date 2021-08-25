@@ -6,6 +6,7 @@
     "cart": [],
     "purchases": [],
     "login": [],
+    "logout": [],
     "sessions": [],
     "isAdmin": true
   },
@@ -16,6 +17,7 @@
     "cart": [],
     "purchases": [],
     "login": [],
+    "logout": [],
     "sessions": [],
     "isAdmin": false
   },
@@ -26,6 +28,7 @@
     "cart": [],
     "purchases": [],
     "login": [],
+    "logout": [],
     "sessions": [],
     "isAdmin": false
   },
@@ -36,6 +39,7 @@
     "cart": [],
     "purchases": [],
     "login": [],
+    "logout": [],
     "sessions": [],
     "isAdmin": false
   },
@@ -46,6 +50,7 @@
     "cart": [],
     "purchases": [],
     "login": [],
+    "logout": [],
     "sessions": [],
     "isAdmin": false
   },
@@ -56,6 +61,7 @@
     "cart": [],
     "purchases": [],
     "login": [],
+    "logout": [],
     "sessions": [],
     "isAdmin": false
   }
