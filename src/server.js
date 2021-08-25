@@ -97,19 +97,6 @@ app.post(`/login`,async (req, res, next) => {
 //     // get to it -login data ix סעיף
 })
 
-// const getAllTypeAsObj = (type, callback) => {
-//     // get all type from redis
-//     return redisClient.hgetall(type, (err, results) => {
-//         // results is built as user_key + JSON(object)
-//         if (err) console.log(err);
-//         else callback(getallType(results));// tranform into array of objects
-//     });
-// };
-
-const getallType = (items) => {
-    if (items === undefined || items === null) return items;
-    return Object.values(items).map(i => JSON.parse(i));// object of object (key+value) -> array of objects values(JSON) -> array of objects values(OBJ)
-};
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);
@@ -121,6 +108,12 @@ app.listen(port, () => {
 
 //register
 const genarateUuid = () => {
+    /*
+    temp = uuid4()
+    check if exists
+    if does -> temp = uuid4()
+    else -> return temp
+     */
     return uuidv4();
 }
 
