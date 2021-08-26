@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import './components/login.css';
+import './login.css';
 
 function Login() {
 

@@ -85,7 +85,7 @@ app.post(`/register`, async (req, res, next) => {
             isAdmin: false
         };
         // read current file contents
-        if (user.username === undefined || user.password.valueOf() === undefined) {
+        if (user.username === undefined || user.password.valueOf() === undefined||user.username.length === 0 || user.password.length === 0) {
             console.log("error, invalid data");
             res.status(500).json("ERR");
             return;
@@ -206,6 +206,7 @@ app.post("/admin/getcurrentcart/:username", async (req, res, next) => {
     res.status(200).json(data[index].cart);
 });
 
+
 app.post("/addtocart/:productname", async (req, res, next) => {
     if (!req.session.user) {
         console.log("Not logged in");
@@ -249,6 +250,7 @@ app.post("/addtocart/:productname", async (req, res, next) => {
     req.session.cart = temp;
     res.status(200);
 });
+
 
 app.post("/search/productquery", async (req, res, next) => {
     if (!req.session.user) {
