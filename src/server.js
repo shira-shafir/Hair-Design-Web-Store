@@ -12,6 +12,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const {logDOM} = require("@testing-library/react");
 const bcrypt = require("bcryptjs"); //ADDED
+const helmet = require("helmet");
 
 // constants
 const port = process.env.PORT || 3009;
@@ -19,6 +20,11 @@ const app = express();
 const salt = bcrypt.genSaltSync(10);// ADDED
 const usersJson = "./usersDB.json";
 const productsJson = "./productDB.json";
+const session = require("express-session");
+const sessionStore = require('express-session-rsdb');
+
+// Importing file-store module
+const filestore = require("session-file-store")(session)
 
 // App uses
 app.use(bodyParser.json());
@@ -28,6 +34,20 @@ app.use(cors({
     credential: true
 }));
 app.use(cookieParser());
+
+
+app.use(session({
+    store: new sessionStore(),
+    name: "session-id",
+    secret: "GFGEnter", // Secret key,
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        secure: false,
+        httpOnly: true,
+        maxAge: 1000 * 60 * 30, // session max age in miliseconds
+    }
+}))
 
 
 /** get products
@@ -46,9 +66,12 @@ app.get('/users', async (req, res) => {
  *
  */
 app.post(`/register`, async (req, res, next) => {
-        /*
-        TODO If logged in
-         */const hash = bcrypt.hashSync("B4c0/\/", salt);
+        if (req.session.user) {
+            console.log("Already logged in");
+            res.status(500);
+            return;
+        }
+        const hash = bcrypt.hashSync("B4c0/\/", salt);
 
         let user = {
             id: generateUserId(),
@@ -68,7 +91,7 @@ app.post(`/register`, async (req, res, next) => {
             return;
         }
         // append the new user
-        let data = await getData(usersJson);
+        let data = await getD(usersJson);
         let usernames = data.map(obj => obj.username);
         if (usernames.indexOf(user.username) !== -1) {
             console.log("users exists");
@@ -87,6 +110,11 @@ app.post(`/register`, async (req, res, next) => {
  *
  */
 app.post(`/login`, async (req, res, next) => {
+    if (req.session.user) {
+        console.log("Already logged in");
+        res.status(500);
+        return;
+    }
     let user = {username: req.body.username, password: req.body.password};
     if (user.username === undefined || user.password === undefined || user.username.length === 0 || user.password.length === 0) {
         console.log("error, invalid data");
@@ -103,14 +131,8 @@ app.post(`/login`, async (req, res, next) => {
         res.status(500).json("user not exists");
         return;
     }
-    if (isLoggedIn(data[index])) {
-        // TODO : check log out status
-        console.log("Already Logged");
-        res.status(500).json("Already logged in");
-        return;
-    }
     let passes = data.map(obj => obj.password);
-    if (!bcrypt.compareSync(user.password,passes[index])) { //edited
+    if (!bcrypt.compareSync(user.password, passes[index])) { //edited
         console.log("wrong password");
         res.status(500).json("Wrong password");
         return;
@@ -126,19 +148,57 @@ app.post(`/login`, async (req, res, next) => {
     }
     await updateInJSON(usersJson, index, "logins", temp);
     userInFile.password = undefined;
+    req.session.user = userInFile.id;
+    req.session.cart = userInFile.cart;
+    if (req.body.rememberMe) {
+        req.session.cookie.maxAge = Number.MAX_SAFE_INTEGER;
+    }
     res.status(200).json(userInFile);
     console.log("user logged in");
 });
 
+app.get("/logout", async (req, res) => {
+    // clear the cookie
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500);
+        return;
+    }
+    let userID = req.session.user;
+    let data = await getData(usersJson);
+    let usernames = data.map(obj => obj.username);
+    let index = usernames.indexOf(userID.id);
+    let date = new Date().toUTCString();
+    let userInFile = data[index];
+    let temp;
+    if (userInFile.session === undefined) {
+        temp = [date];
+    } else {
+        userInFile.logouts.push(date);
+        temp = userInFile.logouts;
+    }
+    await updateInJSON(usersJson, index, "logouts", temp);
+    req.session.destroy(function (err){
+        if (err) {
+            console.log(err);
+        }
+    })
+    res.clearCookie('connect.sid', {path: '/'}).status(200).send({message: "Logged Out Successfully"});
+    // redirect to login
+    return res.redirect("/login");
+});
+
 app.post("/admin/getcurrentcart/:username", async (req, res, next) => {
+
     /*
     TODO If user not connected
      */
     // if (isAdmin()){}
+
     let data = await getData(usersJson);
     let usernames = data.map(obj => obj.username);
     let username = req.params.username;
-    let index = data.indexOf(username);
+    let index = usernames.indexOf(username);
     if (index === -1) {
         res.status(500).json("invalid User");
         return;
@@ -147,9 +207,11 @@ app.post("/admin/getcurrentcart/:username", async (req, res, next) => {
 });
 
 app.post("/addtocart/:productname", async (req, res, next) => {
-    /*
-    TODO If user not connected
-     */
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500);
+        return;
+    }
     let products = await getData(productsJson);
 
     let names = products.map(obj => obj.name);
@@ -159,20 +221,56 @@ app.post("/addtocart/:productname", async (req, res, next) => {
         return;
     }
     // get user by id (stored somewhere)
-    let cart = users
+    let userID = req.session.user;
+    let data = await getData(usersJson);
+    let usernames = data.map(obj => obj.username);
+    let index2 = usernames.indexOf(userID.id);
+    let userData = data[index2];
+    let temp;
+    if(userData.cart === undefined){
+        temp = [{product:products[index],amount:1}];
+    }
+    else{
+        let productName = products[index];
+        let prodInCart = userData.cart.map(obj=>obj.name);
+        let indexincart = prodInCart.indexOf(productName);
+        if (indexincart!== -1){
+            let temp1 = userData.cart[indexincart];
+            temp1.amount += 1
+            userData.cart[indexincart] = temp1;
+            temp = userData.cart;
 
+        } else {
+            userData.cart.push({product:products[index],amount:1});
+            temp = userData.cart;
+        }
+    }
+    await updateInJSON(usersJson, index2, "cart", temp);
+    req.session.cart = temp;
+    res.status(200);
 });
-app.post("/search/:query", async (req, res, next) => {
-    /*
-    TODO If user not connected
-     */
+
+app.post("/search/productquery", async (req, res, next) => {
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500);
+        return;
+    }
+    let query = req.body.query;
     let products = await getData(productsJson);
-    res.status(200).send(products.filter(obj => obj.name.startsWith(req.params.query)));
+    res.status(200).json(products.filter(obj => obj.name.startsWith(query)));
 });
+
+
 // app.post("/removefromcart", (req, res, next) => {
 //     /*
 //     TODO If user not connected
 //      */
+// if(!req.session.user){
+//     console.log("Not logged in");
+//     res.status(500);
+//     return;
+// }
 //
 //
 //
@@ -180,17 +278,45 @@ app.post("/search/:query", async (req, res, next) => {
 //
 //
 // });
-// app.post("/getusercart/:userid", (req, res, next) => {
-//     /*
-//     TODO If user not connected
-//      */
-//
-//
-//
-//
-//
-//
-// });
+
+app.post("/getusercart/:userid", async (req, res, next) => {
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500);
+        return;
+    }
+    let data = await getData(usersJson);
+    let userIds = data.map(obj => obj.id);
+    let userid = req.params.userid;
+    let index = userIds.indexOf(userid);
+    if (index === -1) {
+        res.status(500).json("invalid User");
+        return;
+    }
+    res.status(200).json(data[index].cart);
+});
+
+app.get("/cart/:userId", (async (req, res) => {
+    let response = await fetch(`http://localhost:3009/getusercart/${req.params.userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Access-Control-Allow-Origin': 'http://localhost:3000'
+        },
+        credentials: 'include',
+    }).then(response => response.json())
+        .then(data1 => {
+            res.status(200).json(data1);
+        })
+        .catch((error) => {
+            // console.error('Error:', error);
+            res.status(500).json(error);
+        });
+    console.log(response);
+}));
+
+
+
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);
@@ -208,6 +334,7 @@ const isAdmin = async (username) => {
     let index = usernames.indexOf(username);
     return users[index].isAdmin;
 };
+
 const generateUserId = async () => {
     let data = await getData(usersJson);
     let data1 = data.map(obj => obj.id);
@@ -230,12 +357,12 @@ const updateJSON = async (fileJson, value) => {
     let filePath = path.join(process.cwd(), fileJson);
     await fs.writeFileSync(filePath, JSON.stringify(value));
 }
-const getUserByID = async (value) => {
-    let data = await getData(usersJson);
-    let data1 = data.filter(obj => obj["id"] === value);
-    return data1[0];
-
-}
+// const getUserByID = async (value) => {
+//     let data = await getData(usersJson);
+//     let data1 = data.filter(obj => obj["id"] === value);
+//     return data1[0];
+//
+// }
 const isLoggedIn = (user) => {
     // 0 -> Equal number of logins and logouts therefore out , 1 is logged in more is DOS
     // TODO ensure when cookie expired to add to logouts..
