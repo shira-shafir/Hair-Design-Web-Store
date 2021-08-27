@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
-
+import './css/login.css';
+import { useAlert } from "react-alert";
 
 function Register() {
 
@@ -20,24 +21,35 @@ function Register() {
             },
             body: JSON.stringify(user)
         });
-
-        //todo: handle response status code
-
+        if (response.status === 200) {
+            alert("Registered Successfully");
+        } else if (response.status === 500 ) {
+            alert("Unexpected Error, Please Try Again");
+        }
+        else if (response.status === 501){
+            alert("User logged in");
+        }
+        else if (response.status === 400){
+            alert("users exists");
+        }
 
     }
 
     return (
-        <div >
-            <h1> Reigster form </h1>
+        <div id="main">
+            <h1> Register form </h1>
+            Username
             <input type="text"
                    placeholder="userName"
                    onChange={(username) => setUserName(username.target.value)}
             />
+            <br/>
+            Password
             <input type="password"
                    placeholder="Password"
                    onChange={(password) => setPassword(password.target.value)}
             />
-
+            <br/>
             <button type="button" onClick={register}> register</button>
         </div>
     );

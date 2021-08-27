@@ -5,9 +5,7 @@
     "password": "$2a$10$5G38F4RFZQGYuVPBk3DZ5uzD1qP5O00UylgjXF5naRGY.dG1H4PAK",
     "cart": [],
     "purchases": [],
-    "logins": [
-      "Thu, 26 Aug 2021 10:28:08 GMT"
-    ],
+    "logins": [],
     "logouts": [],
     "sessions": [],
     "isAdmin": true
@@ -62,11 +60,34 @@
     "id": "1234571",
     "username": "ohad",
     "password": "$2a$10$dLRYhrXS63hSWyFM8iH9t.jtxY3r9zdvcHRh/cnrZlxOQKnvMES9K",
-    "cart": [],
+    "cart": [
+      {
+        "product": {
+          "name": "Wella",
+          "detail": "Color Charm Lightest Ash Blonde Toner",
+          "price": "8.49",
+          "image": "wella.jpg"
+        },
+        "amount": 2
+      }
+    ],
     "purchases": [],
     "logins": [
-      "Thu, 26 Aug 2021 10:44:24 GMT"
+      "Thu, 26 Aug 2021 10:44:24 GMT",
+      "Thu, 26 Aug 2021 20:05:29 GMT",
+      "Fri, 27 Aug 2021 11:12:44 GMT"
     ],
+    "logouts": [],
+    "sessions": [],
+    "isAdmin": false
+  },
+  {
+    "id": {},
+    "username": "hello",
+    "password": "$2a$10$I6zzhLuEFCrAfGng3vBhdubjnVFSZCG/S5oIN9TXkbExVaGTVcza6",
+    "cart": [],
+    "purchases": [],
+    "logins": [],
     "logouts": [],
     "sessions": [],
     "isAdmin": false

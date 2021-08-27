@@ -1,0 +1,19 @@
+body {
+    font-family: 'Ubuntu', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    size: 5000px;
+}
+
+#main {
+    border: 1px gray solid;
+    padding: 20px;
+    color: whitesmoke;
+    background-color: #6d8bc1;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    align-content: center;
+}

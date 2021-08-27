@@ -68,7 +68,7 @@ app.get('/users', async (req, res) => {
 app.post(`/register`, async (req, res, next) => {
         if (req.session.user) {
             console.log("Already logged in");
-            res.status(500);
+            res.status(501);
             return;
         }
         const hash = bcrypt.hashSync("B4c0/\/", salt);
@@ -85,17 +85,17 @@ app.post(`/register`, async (req, res, next) => {
             isAdmin: false
         };
         // read current file contents
-        if (user.username === undefined || user.password.valueOf() === undefined||user.username.length === 0 || user.password.length === 0) {
+        if (user.username === undefined || user.password.valueOf() === undefined ||user.username.length === 0 || user.password.length === 0) {
             console.log("error, invalid data");
             res.status(500).json("ERR");
             return;
         }
         // append the new user
-        let data = await getD(usersJson);
+        let data = await getData(usersJson);
         let usernames = data.map(obj => obj.username);
         if (usernames.indexOf(user.username) !== -1) {
             console.log("users exists");
-            res.status(500).json("user exists");
+            res.status(400).json("user exists");
             return;
         }
 
@@ -123,9 +123,9 @@ app.post(`/login`, async (req, res, next) => {
     }
     let data = await getData(usersJson);
     let usernames = data.map(obj => obj.username);
-    console.log(usernames);
+    // console.log(usernames);
     let index = usernames.indexOf(user.username);
-    console.log(index);
+    // console.log(index);
     if (index === -1) {
         console.log("users not exists");
         res.status(500).json("user not exists");
@@ -224,31 +224,33 @@ app.post("/addtocart/:productname", async (req, res, next) => {
     // get user by id (stored somewhere)
     let userID = req.session.user;
     let data = await getData(usersJson);
-    let usernames = data.map(obj => obj.username);
-    let index2 = usernames.indexOf(userID.id);
+    let userIds = data.map(obj => obj.id);
+    let index2 = userIds.indexOf(userID);
     let userData = data[index2];
     let temp;
     if(userData.cart === undefined){
         temp = [{product:products[index],amount:1}];
     }
     else{
-        let productName = products[index];
-        let prodInCart = userData.cart.map(obj=>obj.name);
+        let productName = products[index].name;
+        let prodInCart = userData.cart.map(obj=>obj.product.name);
         let indexincart = prodInCart.indexOf(productName);
         if (indexincart!== -1){
+            console.log("found");
             let temp1 = userData.cart[indexincart];
             temp1.amount += 1
             userData.cart[indexincart] = temp1;
             temp = userData.cart;
 
         } else {
+            console.log("not found");
             userData.cart.push({product:products[index],amount:1});
             temp = userData.cart;
         }
     }
     await updateInJSON(usersJson, index2, "cart", temp);
     req.session.cart = temp;
-    res.status(200);
+    res.status(200).send(temp);
 });
 
 
@@ -264,22 +266,79 @@ app.post("/search/productquery", async (req, res, next) => {
 });
 
 
-// app.post("/removefromcart", (req, res, next) => {
-//     /*
-//     TODO If user not connected
-//      */
-// if(!req.session.user){
-//     console.log("Not logged in");
-//     res.status(500);
-//     return;
-// }
-//
-//
-//
-//
-//
-//
-// });
+app.post("/removefromcart", async (req, res, next) => {
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500);
+        return;
+    }
+    let products = await getData(req.user.cart), names = products.map(obj => obj.name),
+        index = names.indexOf(req.params.productname);
+    if (index === -1) {
+        res.status(500).json("Product not found");
+        return;
+    }
+    // get user by id (stored somewhere)
+    let userID = req.session.user;
+    let data = await getData(usersJson);
+    let usernames = data.map(obj => obj.username);
+    let index2 = usernames.indexOf(userID.id);
+    let userData = data[index2];
+    let temp;
+    if (userData.cart === undefined) {
+        temp = [];
+    } else {
+        let productName = products[index];
+        let prodInCart = userData.cart.map(obj => obj.name);
+        let indexincart = prodInCart.indexOf(productName);
+        if (indexincart !== -1) {
+            let temp1 = userData.cart[indexincart];
+            temp1.amount -= 1
+            userData.cart[indexincart] = temp1;
+            temp = userData.cart;
+
+        } else {
+            userData.cart.pop();
+            temp = userData.cart;
+        }
+    }
+    await updateInJSON(usersJson, index2, "cart", temp);
+    req.session.cart = temp;
+    res.status(200);
+
+});
+
+app.post("/cart/checkout",async (req, res, next) => {
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500);
+        return;
+    }
+    let userID = req.session.user;
+    let cart = req.session.cart;
+    let data = await getData(usersJson);
+    let userIds = data.map(obj => obj.id);
+    let index2 = userIds.indexOf(userID);
+    let userData = data[index2];
+    let checkOne = cart.filter(obj=>obj.amount <= 0);
+    let checkTwo =cart.filter(obj=>obj.product.price <= 0);
+    if (checkOne !== [] || checkTwo !== []){
+        console.log("Error, invalid arguments in cart");
+    }
+    let sum = cart.map(obj=>obj.product.price*obj.amount).reduce((total,current)=> total + current,0);
+    let temp;
+    if (userData.purchases === undefined){
+        temp = [cart,sum];
+    }
+    else {
+        userData.purchases.push({cart: cart, sum: sum});
+        temp = userData.purchases;
+    }
+    await updateInJSON(usersJson, index2,"purchases",temp);
+    await updateInJSON ( usersJson, index2, "cart", [])
+    req.session.cart = [];
+    res.status(200).send("Purchase complete!");
+});
 
 app.post("/getusercart/:userid", async (req, res, next) => {
     if (!req.session.user) {
@@ -318,11 +377,10 @@ app.get("/cart/:userId", (async (req, res) => {
 }));
 
 
-
-
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);
 });
+
 
 const getData = async (fileJson) => {
     let filePath = path.join(process.cwd(), fileJson);

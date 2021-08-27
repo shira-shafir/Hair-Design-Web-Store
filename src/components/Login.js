@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import './login.css';
+import './css/login.css';
 
 function Login() {
 
@@ -17,7 +17,7 @@ function Login() {
             rememberMe: rememberMe
         };
 
-        let response = await fetch('/login', {
+        let response = await fetch('http://localhost:3009/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -27,7 +27,11 @@ function Login() {
 
         //todo: handle response status code
         // for example, if user is connected we want to change the current page from login to home(?)
-
+        if (response.status === 200) {
+            alert("Success");
+        } else if (response.status === 500) {
+            alert("Unexpected Error,invalid data");
+        }
 
     }
 
@@ -36,12 +40,15 @@ function Login() {
             <h1>Login Form</h1>
             <form>
                 <div>
+                    Username
                     <input type="text"
                            placeholder="Username"
+
                            onChange={(username) => setUsername(username.target.value)}/>
                 </div>
                 <div>
                     <br/>
+                    Password
                     <input type="password"
                            placeholder="Password"
                            onChange={(password) => setPassword(password.target.value)}/>
