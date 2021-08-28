@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import './css/login.css';
+import '../components/css/login.css';
 import { useAlert } from "react-alert";
 
 function Register() {

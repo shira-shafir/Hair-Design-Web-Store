@@ -1,48 +1,32 @@
-// import logo from './logo.svg';
 import './App.css';
-import Login from "./components/Login";
-import Cart from "./components/Cart";
-// import Home from "./components/Home";
-// import Main from "./components/Main";
-// import Register from "./components/Register";
-// import Login from "./components/Login";
-
-const user = {
-  "id": "1234567",
-  "username": "example",
-  "password": "$2a$10$GMU4lvHb.OY1Hdbg/gmA7uGMHXQALJA388EVFRpz6d2tOH5630Cli",
-  "cart": [{
-    "name": "Wella",
-    "detail": "Color Charm Lightest Ash Blonde Toner",
-    "price": "8.49",
-    "amount": "2",
-    "image": "wella.jpg"
-  },
-    {
-      "name": "Idella Labs",
-      "detail": "Original Leave In Treatment",
-      "price": "7.99",
-      "amount": "3",
-      "image": "SBS-106001.jpg"
-    },
-    {
-      "name": "Beyond the Zone",
-      "detail": "Curling Creme",
-      "price": "6.5",
-      "amount": "1",
-      "image": "Beyond.jpg"
-    }],
-  "purchases": [],
-  "logins": [],
-  "logouts": [],
-  "sessions": [],
-  "isAdmin": false
-}
+import {BrowserRouter as Router, Route, Switch,} from "react-router-dom";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Quiz from "./pages/Quiz";
+import { routes } from "./routes";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <div className="App">
-    <Home/>
+    <div id={"App"}>
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path={routes.home}>
+            <Home/>
+          </Route>
+          <Route path={routes.register}>
+            <Register/>
+          </Route>
+          <Route path={routes.login}>
+            <Login/>
+          </Route>
+          <Route path={routes.quiz}>
+            <Quiz/>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
