@@ -3,156 +3,235 @@
     "name": "Wella",
     "detail": "Color Charm Lightest Ash Blonde Toner",
     "price": "8.49",
-    "image": "wella.jpg"
+    "image": "wella.jpg",
+    "hairColor": "Blonde",
+    "hairLength": "Long",
+    "hairTexture": "Straight"
   },
   {
     "name": "Idella Labs",
     "detail": "Original Leave In Treatment",
     "price": "7.99",
-    "image": "SBS-106001.jpg"
+    "image": "SBS-106001.jpg",
+    "hairColor": "Brown",
+    "hairLength": "Long",
+    "hairTexture": "Straight"
   },
   {
     "name": "Beyond the Zone",
     "detail": "Curling Creme",
     "price": "6.5",
-    "image": "Beyond.jpg"
+    "image": "Beyond.jpg",
+    "hairColor": "Red",
+    "hairLength": "Long",
+    "hairTexture": "Curly"
   },
   {
     "name": "Hawaiian Silky",
     "detail": "14 in 1 Miracle Worker",
     "price": "14.99",
-    "image": "HawaiianSilky.jpg"
+    "image": "HawaiianSilky.jpg",
+    "hairColor": "Brown",
+    "hairLength": "Long",
+    "hairTexture": "Curly"
   },
   {
     "name": "ASP30",
     "detail": "Quick Dip Powders",
     "price": "8.79",
-    "image": "ASP30.jpg"
+    "image": "ASP30.jpg",
+    "hairColor": "Red",
+    "hairLength": "Short",
+    "hairTexture": "Straight"
   },
   {
     "name": "AGEbeautiful",
     "detail": "Anti-Aging Permanent Liqui-Creme Hair",
     "price": "19.99",
-    "image": "AGEbeautiful.jpg"
+    "image": "AGEbeautiful.jpg",
+    "hairColor": "Black",
+    "hairLength": "Long",
+    "hairTexture": "Straight"
   },
   {
     "name": "As I Am",
     "detail": "Bounce Back Conditioner",
     "price": "12.49",
-    "image": "AsIAm.jpg"
+    "image": "AsIAm.jpg",
+    "hairColor": "Red",
+    "hairLength": "Curly",
+    "hairTexture": "Medium"
   },
   {
     "name": "Blond Brilliance",
     "detail": "Express NINE Level Lightener",
     "price": "29.99",
-    "image": "BlondB.jpg"
+    "image": "BlondB.jpg",
+    "hairColor": "Blond",
+    "hairLength": "Long",
+    "hairTexture": "Curly"
   },
   {
     "name": "ion",
     "detail": "Color Defense Sulfate Free Shampoo",
     "price": "15.59",
-    "image": "ION159.jpg"
+    "image": "ION159.jpg",
+    "hairColor": "Black",
+    "hairLength": "Short",
+    "hairTexture": "Curly"
   },
+
   {
     "name": "Salon Care",
     "detail": "20 Volume Creme Developer",
     "price": "9.96",
-    "image": "SLNCAR60.jpg"
+    "image": "SLNCAR60.jpg",
+    "hairColor": "Red",
+    "hairLength": "Medium",
+    "hairTexture": "Straight"
   },
   {
     "name": "Arctic Mist Diluter",
     "detail": "Diluter Designed to Be Mixed",
     "price": "16.99",
-    "image": "SBS-222325.jpg"
+    "image": "SBS-222325.jpg",
+    "hairColor": "Black",
+    "hairLength": "Short",
+    "hairTexture": "Straight"
   },
   {
     "name": "Reshma Beauty",
     "detail": "Henna Semi Permanent Hair Color",
     "price": "8.39",
-    "image": "RESHMA1.jpg"
+    "image": "RESHMA1.jpg",
+    "hairColor": "Brown",
+    "hairLength": "Medium",
+    "hairTexture": "Curly"
   },
   {
     "name": "Beautiful Collection",
     "detail": "Semi Permanent Moisturizing Hair Color",
     "price": "8.79",
-    "image": "CLAIRL15.jpg"
+    "image": "CLAIRL15.jpg",
+    "hairColor": "Red",
+    "hairLength": "Long",
+    "hairTexture": "Straight"
   },
   {
     "name": "Shimmer Lights",
     "detail": "Conditioning Purple Shampoo",
     "price": "10.89",
-    "image": "CLAIRL3.jpg"
+    "image": "CLAIRL3.jpg",
+    "hairColor": "Blond",
+    "hairLength": "Medium",
+    "hairTexture": "Curly"
   },
   {
     "name": "Bedhead by TiGi",
     "detail": "Recovery Shampoo",
     "price": "30.19",
-    "image": "SBS-007240.jpg"
+    "image": "SBS-007240.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   },
   {
     "name": "Infusium 23",
     "detail": "Original Leave In Treatment",
     "price": "7.99",
-    "image": "SBS-106001.jpg"
+    "image": "SBS-106001.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   },
   {
     "name": "Ecoco",
     "detail": "Krystal Styling Gel",
     "price": "12.49",
-    "image": "SBS-483116.jpg"
+    "image": "SBS-483116.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   },
   {
     "name": "Waves",
     "detail": "Coconut CoWash 32oz",
     "price": "16.99",
-    "image": "SBS-005437.jpg"
+    "image": "SBS-005437.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   },
   {
     "name": "Novex",
     "detail": "Keratin Deep Conditioning Treatment",
     "price": "17.69",
-    "image": "SBS-478482.jpg"
+    "image": "SBS-478482.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   },
   {
     "name": "Cantu",
     "detail": "Strengthening Styling Gel",
     "price": "6.39",
-    "image": "SBS-005454.jpg"
+    "image": "SBS-005454.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   },
   {
     "name": "Long & Healthy",
     "detail": "Deep Moisture Conditioner with Pomegranate",
     "price": "15.59",
-    "image": "SBS-623625.jpg"
+    "image": "SBS-623625.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   },
   {
     "name": "Curlessence",
     "detail": "Moisturizing Curl Activator",
     "price": "5.47",
-    "image": "SBS-607266.jpg"
+    "image": "SBS-607266.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   },
   {
     "name": "Beyond the Zone",
     "detail": "Curling Creme",
     "price": "7.29",
-    "image": "BTZ10.jpg"
+    "image": "BTZ10.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   },
   {
     "name": "Proclaim",
     "detail": "Coconut Oil Anti-Breakage Shampoo",
     "price": "9.39",
-    "image": "SBS-631648.jpg"
+    "image": "SBS-631648.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   },
   {
     "name": "Volumax",
     "detail": "Volumizing Gel",
     "price": "10.39",
-    "image": "SBS-623319.jpg"
+    "image": "SBS-623319.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   },
   {
     "name": "4+4 by TRESemme",
     "detail": "Styling Glaze",
     "price": "12.39",
-    "image": "SBS-125222.jpg"
+    "image": "SBS-125222.jpg",
+    "hairColor": "",
+    "hairLength": "",
+    "hairTexture": ""
   }
 ]

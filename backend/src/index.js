@@ -64,46 +64,45 @@ app.get('/users', async (req, res) => {
  *
  */
 app.post(`/register`, async (req, res, next) => {
-        if (req.session.user) {
-            console.log("Already logged in");
-            res.status(501);
-            return;
-        }
-        const hash = bcrypt.hashSync("B4c0/\/", salt);
-
-        let user = {
-            id: generateUserId(),
-            username: req.body.username,
-            password: bcrypt.hashSync(req.body.password, salt), // edited
-            cart: [],
-            purchases: [],
-            logins: [],
-            logouts: [],
-            sessions: [],
-            isAdmin: false
-        };
-        // read current file contents
-        if (user.username === undefined || user.password.valueOf() === undefined ||user.username.length === 0 || user.password.length === 0) {
-            console.log("error, invalid data");
-            res.status(500).json("ERR");
-            return;
-        }
-        // append the new user
-        let data = await getData(usersJson);
-        let usernames = data.map(obj => obj.username);
-        if (usernames.indexOf(user.username) !== -1) {
-            console.log("users exists");
-            res.status(400).json("user exists");
-            return;
-        }
-
-        data.push(user);
-        await updateJSON(usersJson, data);
-        // write the file back to users.json
-
-        res.status(200).json(user);
+    if (req.session.user) {
+        console.log("Already logged in");
+        res.status(501);
+        return;
     }
-);
+    const hash = bcrypt.hashSync("B4c0/\/", salt);
+
+    let user = {
+        id: generateUserId(),
+        username: req.body.username,
+        password: bcrypt.hashSync(req.body.password, salt), // edited
+        cart: [],
+        purchases: [],
+        logins: [],
+        logouts: [],
+        sessions: [],
+        isAdmin: false
+    };
+    // read current file contents
+    if (user.username === undefined || user.password.valueOf() === undefined || user.username.length === 0 || user.password.length === 0) {
+        console.log("error, invalid data");
+        res.status(500).json("ERR");
+        return;
+    }
+    // append the new user
+    let data = await getData(usersJson);
+    let usernames = data.map(obj => obj.username);
+    if (usernames.indexOf(user.username) !== -1) {
+        console.log("users exists");
+        res.status(400).json("user exists");
+        return;
+    }
+
+    data.push(user);
+    await updateJSON(usersJson, data);
+    // write the file back to users.json
+
+    res.status(200).json(user);
+});
 /** Login
  *
  */
@@ -176,7 +175,7 @@ app.get("/logout", async (req, res) => {
         temp = userInFile.logouts;
     }
     await updateInJSON(usersJson, index, "logouts", temp);
-    req.session.destroy(function (err){
+    req.session.destroy(function (err) {
         if (err) {
             console.log(err);
         }
@@ -226,14 +225,13 @@ app.post("/addtocart/:productname", async (req, res, next) => {
     let index2 = userIds.indexOf(userID);
     let userData = data[index2];
     let temp;
-    if(userData.cart === undefined){
-        temp = [{product:products[index],amount:1}];
-    }
-    else{
+    if (userData.cart === undefined) {
+        temp = [{product: products[index], amount: 1}];
+    } else {
         let productName = products[index].name;
-        let prodInCart = userData.cart.map(obj=>obj.product.name);
+        let prodInCart = userData.cart.map(obj => obj.product.name);
         let indexincart = prodInCart.indexOf(productName);
-        if (indexincart!== -1){
+        if (indexincart !== -1) {
             console.log("found");
             let temp1 = userData.cart[indexincart];
             temp1.amount += 1
@@ -242,7 +240,7 @@ app.post("/addtocart/:productname", async (req, res, next) => {
 
         } else {
             console.log("not found");
-            userData.cart.push({product:products[index],amount:1});
+            userData.cart.push({product: products[index], amount: 1});
             temp = userData.cart;
         }
     }
@@ -284,20 +282,18 @@ app.post("/removefromcart", async (req, res, next) => {
     let index2 = userIds.indexOf(userID);
     let userData = data[index2];
     let temp;
-    if(userData.cart === undefined){
+    if (userData.cart === undefined) {
         console.log("Error,empty cart")
-    }
-    else if (cart.length === 1){
+    } else if (cart.length === 1) {
         userID.cart = [];
-    }
-    else{
+    } else {
         let productName = products[index].name;
-        let prodInCart = cart.map(obj=>obj.product.name);
+        let prodInCart = cart.map(obj => obj.product.name);
         let indexincart = prodInCart.indexOf(productName);
-        if ({product:cart[index],amount:1}){
+        if ({product: cart[index], amount: 1}) {
             cart.filter(obj => obj.product.name !== req.params.product);
         }
-        if (indexincart!== -1){
+        if (indexincart !== -1) {
             console.log("found");
             let temp1 = userData.cart[indexincart];
             temp1.amount -= 1
@@ -306,7 +302,7 @@ app.post("/removefromcart", async (req, res, next) => {
 
         } else {
             console.log("not found");
-            userData.cart.push({product:cart[index],amount:1});
+            userData.cart.push({product: cart[index], amount: 1});
             temp = userData.cart;
         }
     }
@@ -315,7 +311,7 @@ app.post("/removefromcart", async (req, res, next) => {
     res.status(200).send(temp);
 });
 
-app.post("/cart/checkout",async (req, res, next) => {
+app.post("/cart/checkout", async (req, res, next) => {
     if (!req.session.user) {
         console.log("Not logged in");
         res.status(500);
@@ -327,34 +323,33 @@ app.post("/cart/checkout",async (req, res, next) => {
     let userIds = data.map(obj => obj.id);
     let index2 = userIds.indexOf(userID);
     let userData = data[index2];
-    let checkOne = cart.filter(obj=>obj.amount <= 0);
-    let checkTwo =cart.filter(obj=>obj.product.price <= 0);
-    if (checkOne !== [] || checkTwo !== []){
+    let checkOne = cart.filter(obj => obj.amount <= 0);
+    let checkTwo = cart.filter(obj => obj.product.price <= 0);
+    if (checkOne !== [] || checkTwo !== []) {
         console.log("Error, invalid arguments in cart");
     }
-    let sum = cart.map(obj=>obj.product.price*obj.amount).reduce((total,current)=> total + current,0);
+    let sum = cart.map(obj => obj.product.price * obj.amount).reduce((total, current) => total + current, 0);
     let temp;
-    if (userData.purchases === undefined){
-        temp = [cart,sum];
-    }
-    else {
+    if (userData.purchases === undefined) {
+        temp = [cart, sum];
+    } else {
         userData.purchases.push({cart: cart, sum: sum});
         temp = userData.purchases;
     }
-    await updateInJSON(usersJson, index2,"purchases",temp);
-    await updateInJSON ( usersJson, index2, "cart", [])
+    await updateInJSON(usersJson, index2, "purchases", temp);
+    await updateInJSON(usersJson, index2, "cart", [])
     req.session.cart = [];
     res.status(200).send("Purchase complete!");
 });
 
-app.post("/admin/searchUser",async (req, res,next) => {
+app.post("/admin/searchUser", async (req, res, next) => {
     if (!req.session.user) {
         console.log("Not logged in");
         res.status(500);
         return;
     }
     let userID = req.session.user;
-    if (!(await isAdmin(userID))){
+    if (!(await isAdmin(userID))) {
         console.log("Not admin");
         res.status(500);
         return;
@@ -364,20 +359,20 @@ app.post("/admin/searchUser",async (req, res,next) => {
     res.status(200).json(usergetData.filter(obj => obj.username.startsWith(userFinder)));
 })
 
-app.post("/admin/usersData",async (req, res,next) => {
+app.post("/admin/usersData", async (req, res, next) => {
     if (!req.session.user) {
         console.log("Not logged in");
         res.status(500);
         return;
     }
     let userID = req.session.user;
-    if (!(await isAdmin(userID))){
+    if (!(await isAdmin(userID))) {
         console.log("Not admin");
         res.status(500);
         return;
     }
     let usergetData = await getData(usersJson);
-    res.status(200).json(usergetData.map(obj => [obj.username,obj.logins,obj.logouts,obj.cart]));
+    res.status(200).json(usergetData.map(obj => [obj.username, obj.logins, obj.logouts, obj.cart]));
 })
 
 
@@ -426,8 +421,9 @@ app.listen(port, () => {
 const getData = async (fileJson) => {
     let filePath = path.join(process.cwd(), fileJson);
     let fileData = await fs.readFileSync(filePath);
-    return JSON.parse(fileData);
+    return await JSON.parse(fileData);
 };
+
 // cookies and sessions
 const isAdmin = async (userID) => {
     let users = await getData(usersJson);
