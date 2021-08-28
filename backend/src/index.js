@@ -10,9 +10,7 @@ const json = require('json');
 const fs = require('fs');
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const {logDOM} = require("@testing-library/react");
 const bcrypt = require("bcryptjs"); //ADDED
-const helmet = require("helmet");
 
 // constants
 const port = process.env.PORT || 3009;
