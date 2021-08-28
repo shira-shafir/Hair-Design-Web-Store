@@ -272,39 +272,45 @@ app.post("/removefromcart", async (req, res, next) => {
         res.status(500);
         return;
     }
-    let products = await getData(req.user.cart), names = products.map(obj => obj.name),
-        index = names.indexOf(req.params.productname);
-    if (index === -1) {
-        res.status(500).json("Product not found");
-        return;
-    }
-    // get user by id (stored somewhere)
-    let userID = req.session.user;
-    let data = await getData(usersJson);
-    let usernames = data.map(obj => obj.username);
-    let index2 = usernames.indexOf(userID.id);
-    let userData = data[index2];
-    let temp;
-    if (userData.cart === undefined) {
-        temp = [];
-    } else {
-        let productName = products[index];
-        let prodInCart = userData.cart.map(obj => obj.name);
-        let indexincart = prodInCart.indexOf(productName);
-        if (indexincart !== -1) {
-            let temp1 = userData.cart[indexincart];
-            temp1.amount -= 1
-            userData.cart[indexincart] = temp1;
-            temp = userData.cart;
 
-        } else {
-            userData.cart.pop();
-            temp = userData.cart;
-        }
-    }
-    await updateInJSON(usersJson, index2, "cart", temp);
-    req.session.cart = temp;
-    res.status(200);
+
+    // let products = await getData(usersJson.);
+    // let names = products.map(obj => obj.name);
+    // let index = names.indexOf(req.params.cart);
+    // if (index === -1) {
+    //     res.status(500).json("Product not found");
+    //     return;
+    // }
+    // // get user by id (stored somewhere)
+    // let userID = req.session.user;
+    // let data = await getData(usersJson);
+    // let userIds = data.map(obj => obj.id);
+    // let index2 = userIds.indexOf(userID);
+    // let userData = data[index2];
+    // let temp;
+    // if(userData.cart === undefined){
+    //     console.log("Error,empty cart")
+    // }
+    // else{
+    //     let productName = products[index].name;
+    //     let prodInCart = userData.cart.map(obj=>obj.product.name);
+    //     let indexincart = prodInCart.indexOf(productName);
+    //     if (indexincart!== -1){
+    //         console.log("found");
+    //         let temp1 = userData.cart[indexincart];
+    //         temp1.amount -= 1
+    //         userData.cart[indexincart] = temp1;
+    //         temp = userData.cart;
+    //
+    //     } else {
+    //         console.log("not found");
+    //         userData.cart.push({product:products[index],amount:0});
+    //         temp = userData.cart;
+    //     }
+    // }
+    // await updateInJSON(usersJson, index2, "cart", temp);
+    // req.session.cart = temp;
+    // res.status(200).send(temp);
 
 });
 
@@ -339,6 +345,40 @@ app.post("/cart/checkout",async (req, res, next) => {
     req.session.cart = [];
     res.status(200).send("Purchase complete!");
 });
+
+app.post("/admin/searchUser",async (req, res,next) => {
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500);
+        return;
+    }
+    let userID = req.session.user;
+    if (!(await isAdmin(userID))){
+        console.log("Not admin");
+        res.status(500);
+        return;
+    }
+    let userFinder = req.body.query;
+    let usergetData = await getData(usersJson);
+    res.status(200).json(usergetData.filter(obj => obj.username.startsWith(userFinder)));
+})
+
+app.post("/admin/usersData",async (req, res,next) => {
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500);
+        return;
+    }
+    let userID = req.session.user;
+    if (!(await isAdmin(userID))){
+        console.log("Not admin");
+        res.status(500);
+        return;
+    }
+    let usergetData = await getData(usersJson);
+    res.status(200).json(usergetData.map(obj => [obj.username,obj.logins,obj.logouts,obj.cart]));
+})
+
 
 app.post("/getusercart/:userid", async (req, res, next) => {
     if (!req.session.user) {
@@ -388,10 +428,10 @@ const getData = async (fileJson) => {
     return JSON.parse(fileData);
 };
 // cookies and sessions
-const isAdmin = async (username) => {
+const isAdmin = async (userID) => {
     let users = await getData(usersJson);
-    let usernames = users.map(obj => obj.username);
-    let index = usernames.indexOf(username);
+    let userIds = users.map(obj => obj.id);
+    let index = userIds.indexOf(userID);
     return users[index].isAdmin;
 };
 
