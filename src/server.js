@@ -272,46 +272,49 @@ app.post("/removefromcart", async (req, res, next) => {
         res.status(500);
         return;
     }
-
-
-    // let products = await getData(usersJson.);
-    // let names = products.map(obj => obj.name);
-    // let index = names.indexOf(req.params.cart);
-    // if (index === -1) {
-    //     res.status(500).json("Product not found");
-    //     return;
-    // }
+    let cart = req.session.cart;
+    let names = cart.map(obj => obj.name);
+    let index = names.indexOf(req.params.cart);
+    if (index === -1) {
+        res.status(500).json("Product not found");
+        return;
+    }
     // // get user by id (stored somewhere)
-    // let userID = req.session.user;
-    // let data = await getData(usersJson);
-    // let userIds = data.map(obj => obj.id);
-    // let index2 = userIds.indexOf(userID);
-    // let userData = data[index2];
-    // let temp;
-    // if(userData.cart === undefined){
-    //     console.log("Error,empty cart")
-    // }
-    // else{
-    //     let productName = products[index].name;
-    //     let prodInCart = userData.cart.map(obj=>obj.product.name);
-    //     let indexincart = prodInCart.indexOf(productName);
-    //     if (indexincart!== -1){
-    //         console.log("found");
-    //         let temp1 = userData.cart[indexincart];
-    //         temp1.amount -= 1
-    //         userData.cart[indexincart] = temp1;
-    //         temp = userData.cart;
-    //
-    //     } else {
-    //         console.log("not found");
-    //         userData.cart.push({product:products[index],amount:0});
-    //         temp = userData.cart;
-    //     }
-    // }
-    // await updateInJSON(usersJson, index2, "cart", temp);
-    // req.session.cart = temp;
-    // res.status(200).send(temp);
+    let userID = req.session.user;
+    let data = await getData(usersJson);
+    let userIds = data.map(obj => obj.id);
+    let index2 = userIds.indexOf(userID);
+    let userData = data[index2];
+    let temp;
+    if(userData.cart === undefined){
+        console.log("Error,empty cart")
+    }
+    else if (cart.length === 1){
+        userID.cart = [];
+    }
+    else{
+        let productName = products[index].name;
+        let prodInCart = cart.map(obj=>obj.product.name);
+        let indexincart = prodInCart.indexOf(productName);
+        if ({product:cart[index],amount:1}){
+            cart.filter(obj => obj.product.name !== req.params.product);
+        }
+        if (indexincart!== -1){
+            console.log("found");
+            let temp1 = userData.cart[indexincart];
+            temp1.amount -= 1
+            userData.cart[indexincart] = temp1;
+            temp = userData.cart;
 
+        } else {
+            console.log("not found");
+            userData.cart.push({product:cart[index],amount:1});
+            temp = userData.cart;
+        }
+    }
+    await updateInJSON(usersJson, index2, "cart", temp);
+    req.session.cart = temp;
+    res.status(200).send(temp);
 });
 
 app.post("/cart/checkout",async (req, res, next) => {
