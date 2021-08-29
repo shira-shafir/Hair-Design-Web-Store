@@ -46,7 +46,7 @@ function UserButtons() {
     }
     const imgStyle = {
         width: "24px",
-        height:"24px",
+        height:"24px"
     }
 
     return (
