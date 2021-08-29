@@ -351,7 +351,7 @@ app.post("/admin/searchUser", async (req, res, next) => {
     let userID = req.session.user;
     if (!(await isAdmin(userID))) {
         console.log("Not admin");
-        res.status(500);
+        res.status(500).json("user not ");
         return;
     }
     let userFinder = req.body.query;
@@ -419,7 +419,7 @@ app.listen(port, () => {
 
 
 const getData = async (fileJson) => {
-    let filePath = path.join(process.cwd(), fileJson);
+    let filePath = path.join(__dirname, fileJson);
     let fileData = await fs.readFileSync(filePath);
     return await JSON.parse(fileData);
 };
@@ -446,27 +446,101 @@ const updateInJSON = async (fileJson, index, field, value) => {
     let objToChange = data[index];
     objToChange[field] = value;
     data[index] = objToChange;
-    let filePath = path.join(process.cwd(), fileJson);
+    let filePath = path.join(__dirname, fileJson);
     await fs.writeFileSync(filePath, JSON.stringify(data));
 }
 
+app.post("/quiz", async (req, res) => {
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500).send("User not logged in!");
+        return;
+    }
+    let quizAnswer = {
+        hairColor: req.body.hairColor,
+        hairLength: req.body.hairLength,
+        hairTexture: req.body.hairTexture
+    };
+    let result = await recommend_and_similar_to(quizAnswer);
+    res.status(200).json(result);
+});
+
 const updateJSON = async (fileJson, value) => {
-    let filePath = path.join(process.cwd(), fileJson);
+    let filePath = path.join(__dirname, fileJson);
     await fs.writeFileSync(filePath, JSON.stringify(value));
 }
-// const getUserByID = async (value) => {
-//     let data = await getData(usersJson);
-//     let data1 = data.filter(obj => obj["id"] === value);
-//     return data1[0];
-//
-// }
-const isLoggedIn = (user) => {
-    // 0 -> Equal number of logins and logouts therefore out , 1 is logged in more is DOS
-    // TODO ensure when cookie expired to add to logouts..
-    let val = user.logins.length - user.logouts.length;
-    if (val > 1) {
-        // TODO force logout
+
+
+const hamming = async (data, quizAnswer) => {
+    let products = data.map(obj => [obj.hairColor, obj.hairLength, obj.hairTexture]);
+    let hamming_map = [];
+    for (let i = 0; i < products.length; i++) {
+        let count = 0;
+        if (quizAnswer.hairColor === products[i][0]) {
+            count += 1;
+        }
+        if (quizAnswer.hairLength === products[i][1]) {
+            count += 1;
+        }
+        if (quizAnswer.hairTexture === products[i][2]) {
+            count += 1;
+        }
+        hamming_map[i] = count;
     }
-    // TODO ADD another condition with local storage
-    return user.logins.length - user.logouts.length === 1
+    return hamming_map;
 }
+const recommend_and_similar_to = async (quizAnswer) => {
+    let products = await getData(productsJson);
+    let hamming_map = await hamming(products, quizAnswer);
+    let index = hamming_map.indexOf(0);
+    let reccomended_product = products[index];
+    let similar_products = [];
+    for (let i = 0; i < products.length; i++) {
+        if (hamming_map[i] === 1) {
+            similar_products.push(products[i]);
+        }
+    }
+    return {reccomended_product: reccomended_product, similar_products: similar_products};
+};
+
+app.post("/likeorunlike", async (req, res, next) => {
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500).send("User not logged in!");
+        return;
+    }
+    let userid = req.session.user;
+    let users = await (getData(usersJson));
+    let userIds = users.map(obj => obj.id);
+    let userIndex = userIds.indexOf(userid);
+    let user = users[userIndex];
+    let productsLiked = user.products_liked;
+    let productName = req.body.productname;
+    let temp;
+    if (productsLiked.map(obj => obj.name).indexOf(productName) !== -1) {
+        temp = productsLiked.filter(obj => obj.name !== productName);
+    } else {
+        let products = await (getData(productsJson));
+        let productsnames = products.map(obj => obj.name);
+        let prodIndex = productsnames.indexOf(productName);
+        let product = products[prodIndex];
+        productsLiked.push(product);
+        temp = productsLiked;
+    }
+    await updateInJSON(usersJson, userIndex, "products_liked", temp);
+    res.status(200).json(temp);
+});
+
+app.get("/likedproducts", async(req, res, next)=>{
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500).send("User not logged in!");
+        return;
+    }
+    let userid = req.session.user;
+    let users = await (getData(usersJson));
+    let userIds = users.map(obj => obj.id);
+    let userIndex = userIds.indexOf(userid);
+    let user = users[userIndex];
+    res.status(200).json(user.products_liked);
+});

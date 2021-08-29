@@ -1,20 +1,20 @@
 import React from "react";
 import {Link, useHistory} from "react-router-dom";
-import { useAlert } from "react-alert";
-import shoppingCart from "../assets/ION159.jpg"; //todo change to shopping cart icon
+// import { useAlert } from "react-alert";
+import shoppingCart from "../assets/shoppingCart.png";
 
 function UserButtons() {
 
     const history = useHistory();
-    const alert = useAlert();
+    // const alert = useAlert();
 
     const goToCart = () => {
         history.push("/cart");
     }
 
-    const signOut = async () => {
-        let response = await fetch('/signout', {
-            method: 'DELETE',
+    const logout = async () => {
+        let response = await fetch('/logout', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
@@ -23,11 +23,11 @@ function UserButtons() {
 
         if (response.status === 204) {
             document.cookie = "sid= ; max-age=0; path=/ ";
-            alert.success("Goodbye!")
+            alert("Goodbye!")
             history.push("/login");
         }
         else if (response.status === 500) {
-            alert.error("Unexpected Error, Please Try Again");
+            alert("Unexpected Error, Please Try Again");
         }
         history.push("/login");
     }
@@ -53,7 +53,7 @@ function UserButtons() {
         <p style={headerStyles}>
             <img src={shoppingCart} style={imgStyle}/>
             <text> | </text>
-            <Link to="/Signout">Sign Out</Link>
+            <Link to="/logout">Log Out</Link>
         </p>
     );
 }

@@ -25,8 +25,6 @@ function Login() {
             body: JSON.stringify(user)
         });
 
-        //todo: handle response status code
-        // for example, if user is connected we want to change the current page from login to home(?)
         if (response.status === 200) {
             alert("Success");
         } else if (response.status === 500) {
