@@ -1,8 +1,8 @@
 import React from "react";
-import soh3 from "./assets/SoH3.png";
-import {useHistory, Link} from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoute";
-import UserButtons from "./UserButtons";
+import soh3 from "../assets/SoH3.png";
+// import {useHistory, Link} from "react-router-dom";
+// import ProtectedRoute from "./ProtectedRoute";
+// import UserButtons from "./UserButtons";
 
 function Header() {
 
@@ -21,7 +21,7 @@ function Header() {
     return(
         <header style={headerStyles}>
             <img src={soh3} style={imgStyle}/>
-            <ProtectedRoute path='/' component={UserButtons} />
+            {/*<ProtectedRoute path='/' component={UserButtons} />*/}
         </header>
     );
     /*

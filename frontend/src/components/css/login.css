@@ -1,12 +1,12 @@
-body {
-    font-family: 'Ubuntu', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 100vh;
-    size: 5000px;
-}
+/*body {*/
+/*    font-family: 'Ubuntu', sans-serif;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    text-align: center;*/
+/*    min-height: 100vh;*/
+/*    size: 5000px;*/
+/*}*/
 
 #main {
     border: 1px gray solid;

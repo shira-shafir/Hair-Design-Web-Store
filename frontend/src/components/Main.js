@@ -4,24 +4,24 @@ import Helmet from "react-helmet";
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import Favicon from 'react-favicon';
-import faviconImg from "./assets/SoH3-copy.png";
+import faviconImg from "../assets/SoH3-copy.png";
 import Header from "./Header";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import ProtectedRoute from "./ProtectedRoute";
 import LoggedOutRoute from "./LoggedOutRoute";
 import AdminRoute from "./AdminRoute";
-import Home from "./Home";
+import Home from "../pages/Home";
 import Checkout from "./Checkout";
-import Login from "./Login";
-import Register from "./Register";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 import About from "./About";
 import Catalog from "./Catalog"
 import Customize from "./Customize";
 import ReadMe from "./ReadMe";
 import Cart from "./Cart";
 import AdminScreen from "./AdminScreen";
-import Quiz from "./Quiz";
+import Quiz from "../pages/Quiz";
 import FindAStylist from "./FindAStylist";
 
 function Main() {

@@ -1,7 +1,7 @@
 import React from "react"
 import { useHistory } from 'react-router-dom';
-import Category from "./Category";
-import ProductLine from "./ProductLine";
+// import Category from "../components/Category";
+// import ProductLine from "./ProductLine";
 
 function Home() {
 
@@ -13,8 +13,9 @@ function Home() {
 
     return(
         <div>
-            <Category/>
-            <ProductLine/>
+            <h1>HOME</h1>
+            {/*<Category/>*/}
+            {/*<ProductLine/>*/}
         </div>);
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {Link, useHistory} from "react-router-dom";
 import { useAlert } from "react-alert";
-import shoppingCart from "./assets/shoping_cart.png";
+import shoppingCart from "../assets/ION159.jpg"; //todo change to shopping cart icon
 
 function UserButtons() {
 

@@ -8,7 +8,6 @@
   "scripts": {
     "start": "./node_modules/.bin/concurrently \"npm run start-client\" \"npm run start-server\"",
     "build": "npm install && npm run build-client && npm run build-server",
-
     "start-client": "cd frontend && npm start",
     "start-server": "cd backend && npm start",
     "build-client": "cd frontend && npm install && npm run build",
