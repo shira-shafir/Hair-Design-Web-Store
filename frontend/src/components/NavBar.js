@@ -10,18 +10,18 @@ function NavBar() {
         height:"24px",
     }
 
-    const navBarStyles = {
-        backgroundSize: "contain",
-        display: "flex",
-        justifyContent:"space-between",
-        flexDirection: "row",
-        backgroundColor: "lightblue",
-        height: "100px",
-        width:"100%",
-        paddingLeft: "30px",
-        boxSizing: "border-box",
-        alignItems: "center",
-    }
+    // const navBarStyles = {
+    //     backgroundSize: "contain",
+    //     display: "flex",
+    //     justifyContent:"space-between",
+    //     flexDirection: "row",
+    //     backgroundColor: "lightblue",
+    //     height: "100px",
+    //     width:"100%",
+    //     paddingLeft: "30px",
+    //     boxSizing: "border-box",
+    //     alignItems: "center",
+    // }
 
     const linkStyles = {
         textDecoration: "none",
@@ -38,7 +38,7 @@ function NavBar() {
     }
 
     return (
-        <nav class="navbar navbar-default" s>
+        <nav class="navbar navbar-default">
             <div className="navbar-header">
                 <ul class="nav navbar-nav">
                     <Link to="/home" style={linkStyles}>Home</Link>

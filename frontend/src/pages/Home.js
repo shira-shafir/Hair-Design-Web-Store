@@ -134,9 +134,6 @@ function Home() {
                 </li>
             </ul>
 
-            {/*<Category/>*/}
-            {/*<ProductLine/>*/}
-
             <div>
                 <h2 style={h2Style}>Top Brands</h2>
                 <ul>
