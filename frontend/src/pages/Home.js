@@ -33,6 +33,8 @@ function Home() {
         whiteSpace: "revert",
         marginLeft: "200px",
         marginBottom: "30px",
+        gridTemplateColumns:"1fr 1fr 1fr",
+
         overflowX: "auto"
     }
     const imgStyle = {
@@ -72,10 +74,14 @@ function Home() {
         backgroundColor: "transparent",
         border: "outset"
     }
+    const tmp ={
+       display:"grid",
+        gridTemplateColumns:"1fr 1fr 1fr"
+    }
     return (
         <div class="OnlyAtHue">
             <h2 style={h2Style}>Only At Hue</h2>
-            <ul>
+            <ul style={tmp}>
                 <li style={productStyle}>
                     <img src={ASP30}/>
                     <h1>ASP</h1>     <button style={likeButtonStyle}><img src={likeButton} style={imgStyle}/></button>

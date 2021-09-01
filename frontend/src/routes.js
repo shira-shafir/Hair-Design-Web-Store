@@ -7,5 +7,6 @@ export const routes = {
   // productsLiked:'/likedProducts',
   store:'/HairCare',
   readmeEitan:'/ReadMeEitan',
-  doYou:'/DoYourStyle'
+  doYou:'/DoYourStyle',
+  products_liked: '/Liked'
 }
