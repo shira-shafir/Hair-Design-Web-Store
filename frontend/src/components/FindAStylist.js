@@ -1,6 +1,6 @@
 import React from "react";
 
-import './css/quiz.css';
+import './css/findStylist.css';
 
 function FindAStylist() {
 

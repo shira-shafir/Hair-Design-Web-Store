@@ -4,7 +4,7 @@
     "detail": "Color Charm Lightest Ash Blonde Toner",
     "price": "8.49",
     "image": "wella.jpg",
-    "hairColor": "Blonde",
+    "hairColor": "Blond",
     "hairLength": "Long",
     "hairTexture": "Straight"
   },
@@ -59,8 +59,8 @@
     "price": "12.49",
     "image": "AsIAm.jpg",
     "hairColor": "Red",
-    "hairLength": "Curly",
-    "hairTexture": "Medium"
+    "hairLength": "Medium",
+    "hairTexture": "Curly"
   },
   {
     "name": "Blond Brilliance",
@@ -131,107 +131,98 @@
     "detail": "Recovery Shampoo",
     "price": "30.19",
     "image": "SBS-007240.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
+    "hairColor": "Brown",
+    "hairLength": "Medium",
+    "hairTexture": "Straight"
   },
   {
-    "name": "Infusium 23",
+    "name": "Tress Two Spray",
     "detail": "Original Leave In Treatment",
-    "price": "7.99",
-    "image": "SBS-106001.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
+    "price": "8.59",
+    "image": "TRes.jpg",
+    "hairColor": "Black",
+    "hairLength": "Long",
+    "hairTexture": "Curly"
   },
   {
     "name": "Ecoco",
     "detail": "Krystal Styling Gel",
     "price": "12.49",
     "image": "SBS-483116.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
+    "hairColor": "Red",
+    "hairLength": "Short",
+    "hairTexture": "Curly"
   },
   {
     "name": "Waves",
     "detail": "Coconut CoWash 32oz",
     "price": "16.99",
     "image": "SBS-005437.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
+    "hairColor": "Brown",
+    "hairLength": "Short",
+    "hairTexture": "Curly"
   },
   {
     "name": "Novex",
     "detail": "Keratin Deep Conditioning Treatment",
     "price": "17.69",
     "image": "SBS-478482.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
+    "hairColor": "Brown",
+    "hairLength": "Short",
+    "hairTexture": "Straight"
   },
   {
     "name": "Cantu",
     "detail": "Strengthening Styling Gel",
     "price": "6.39",
     "image": "SBS-005454.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
+    "hairColor": "Black",
+    "hairLength": "Medium",
+    "hairTexture": "Curly"
   },
   {
     "name": "Long & Healthy",
     "detail": "Deep Moisture Conditioner with Pomegranate",
     "price": "15.59",
     "image": "SBS-623625.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
+    "hairColor": "Black",
+    "hairLength": "Medium",
+    "hairTexture": "Straight"
   },
   {
     "name": "Curlessence",
     "detail": "Moisturizing Curl Activator",
     "price": "5.47",
     "image": "SBS-607266.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
-  },
-  {
-    "name": "Beyond the Zone",
-    "detail": "Curling Creme",
-    "price": "7.29",
-    "image": "BTZ10.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
+    "hairColor": "Blond",
+    "hairLength": "Short",
+    "hairTexture": "Curly"
   },
   {
     "name": "Proclaim",
     "detail": "Coconut Oil Anti-Breakage Shampoo",
     "price": "9.39",
     "image": "SBS-631648.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
+    "hairColor": "Blond",
+    "hairLength": "Short",
+    "hairTexture": "Straight"
   },
   {
     "name": "Volumax",
     "detail": "Volumizing Gel",
     "price": "10.39",
     "image": "SBS-623319.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
+    "hairColor": "Blond",
+    "hairLength": "Medium",
+    "hairTexture": "Straight"
   },
   {
     "name": "4+4 by TRESemme",
     "detail": "Styling Glaze",
     "price": "12.39",
     "image": "SBS-125222.jpg",
-    "hairColor": "",
-    "hairLength": "",
-    "hairTexture": ""
+    "hairColor": "Rainbow",
+    "hairLength": "All",
+    "hairTexture": "All"
   }
 ]

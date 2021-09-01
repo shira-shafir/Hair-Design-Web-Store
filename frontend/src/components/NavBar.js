@@ -1,22 +1,27 @@
 import React from "react";
 import {BrowserRouter as Router, useHistory, Link} from "react-router-dom";
-import AdminRoute from "./AdminRoute";
+// import AdminRoute from "./AdminRoute";
 import './css/Navbar.css';
 
-function NavBar() {
 
-    const navBarStyles = {
-        backgroundSize: "contain",
-        display: "flex",
-        justifyContent:"space-between",
-        flexDirection: "row",
-        backgroundColor: "lightblue",
-        height: "100px",
-        width:"100%",
-        paddingLeft: "30px",
-        boxSizing: "border-box",
-        alignItems: "center",
+function NavBar() {
+    const imgStyle = {
+        width: "24px",
+        height:"24px",
     }
+
+    // const navBarStyles = {
+    //     backgroundSize: "contain",
+    //     display: "flex",
+    //     justifyContent:"space-between",
+    //     flexDirection: "row",
+    //     backgroundColor: "lightblue",
+    //     height: "100px",
+    //     width:"100%",
+    //     paddingLeft: "30px",
+    //     boxSizing: "border-box",
+    //     alignItems: "center",
+    // }
 
     const linkStyles = {
         textDecoration: "none",
@@ -37,18 +42,19 @@ function NavBar() {
             <div className="navbar-header">
                 <ul class="nav navbar-nav">
                     <Link to="/home" style={linkStyles}>Home</Link>
-                    <Link to="/" style={linkStyles}>Hair Color</Link>
+                    <Link to="/HairCare" style={linkStyles}>Store: Hair Care</Link>
                     <Link to="/quiz" style={linkStyles}>Quiz</Link>
-                    <Link to="/" style={linkStyles}>Shampoo & Conditioner</Link>
-                    <Link to="/" style={linkStyles}>Hair Accessories</Link>
                     <Link to="/FindAStylist" style={linkStyles}>Find A Stylist</Link>
-                    {/*<Link to="/ReadMe" style={linkStyles}>About Us</Link>*/}
-
-                    <AdminRoute to="/" component={adminLink} />
+                    <Link to="/DoYourStyle" style={linkStyles}>Braid it like a Pro!</Link>
+                    <Link to="/" style={linkStyles}>Liked Products</Link>
+                    <Link to="/readmeShira" style={linkStyles}>About Us: Shira</Link>
+                    <Link to="/ReadMeEitan" style={linkStyles}>About Us: Eitan</Link>
+                    {/*<AdminRoute to="/" component={adminLink} />*/}
                 </ul>
             </div>
         </nav>
     );
+
 }
 
 export default NavBar;
