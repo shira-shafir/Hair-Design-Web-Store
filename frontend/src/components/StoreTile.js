@@ -2,11 +2,17 @@ import {useState} from "react";
 import styled from 'styled-components';
 
 const TileContainer = styled.div`
-  color: grey;
-  min-height: 50px;
-  max-height: 200px;
+  background-color: grey;
+  height: 200px;
   width: 200px;
   overflow: hidden;
+  
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+  }
 `;
 
 export function StoreTile({name, description, image, price,addToCartCallback,likeCallback}) {
