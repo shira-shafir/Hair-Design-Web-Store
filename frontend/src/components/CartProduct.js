@@ -5,19 +5,16 @@ function CartProduct(props) {
 //TODO: add onclick remove function to Fatimes(x icon)
 
     return (
-        <div >
-            <p>
-
-                <h3> {props.name} </h3>
-                <FaTimes/>
-                <p> price: {props.price}$
-                    <br/>
-                    amount:{props.amount}
-                    <br/>
-                    sub total price: {props.price*props.amount}$
-                </p>
-
+        <div>
+            <h3> {props.name} </h3>
+            <FaTimes onClick={props.removeCallback} style={{cursor:'pointer'}} />
+            <p> price: {props.price}$
+                <br/>
+                amount:{props.amount}
+                <br/>
+                sub total price: {props.price*props.amount}$
             </p>
+
         </div>
     );
 }

@@ -273,15 +273,15 @@ app.post("/addtocart/:productname", async (req, res, next) => {
 /** Remove from cart
  *
  */
-app.post("/removefromcart", async (req, res, next) => {
+app.post("/removefromcart/:productname", async (req, res, next) => {
     if (!req.session.user) {
         console.log("Not logged in");
         res.status(500).json("User not logged in");
         return;
     }
-    let cart = req.session.cart;
-    let names = cart.map(obj => obj.name);
-    let index = names.indexOf(req.params.cart);
+    const cart = await getUserCart(req, res);
+    let names = cart.map(obj => obj.product.name);
+    let index = names.indexOf(req.params.productname);
     if (index === -1) {
         res.status(500).json("Product not found");
         return;
@@ -296,7 +296,8 @@ app.post("/removefromcart", async (req, res, next) => {
     if (userData.cart === undefined) {
         console.log("Error,empty cart")
     } else if (cart.length === 1) {
-        userID.cart = [];
+        userData.cart = [];
+        temp = userData.cart;
     } else {
         let productName = products[index].name;
         let prodInCart = cart.map(obj => obj.product.name);
@@ -392,46 +393,28 @@ app.post("/admin/usersData", async (req, res, next) => {
 })
 
 
-app.post("/getusercart/:userid", async (req, res, next) => {
+app.post("/getusercart", async (req, res, next) => {
     if (!req.session.user) {
         console.log("Not logged in");
         res.status(500).json("User not logged in");
         return;
     }
+    const ans = await getUserCart(req, res);
+    res.status(200).json(ans);
+});
+
+async function getUserCart(req, res) {
     let data = await getData(usersJson);
     let userIds = data.map(obj => obj.id);
-    let userid = req.params.userid;
+    let userid = req.session.user;
     let index = userIds.indexOf(userid);
     if (index === -1) {
         res.status(500).json("invalid User");
-        return;
+        return false;
     }
-    res.status(200).json(data[index].cart);
-});
+    return data[index].cart;
+}
 
-app.get("/cart/:userId", (async (req, res) => {
-    if (!req.session.user) {
-        console.log("Not logged in");
-        res.status(500).json("User not logged in");
-        return;
-    }
-    let response = await fetch(`http://localhost:3009/getusercart/${req.params.userId}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            // 'Access-Control-Allow-Origin': 'http://localhost:3000'
-        },
-        credentials: 'include',
-    }).then(response => response.json())
-        .then(data1 => {
-            res.status(200).json(data1);
-        })
-        .catch((error) => {
-            // console.error('Error:', error);
-            res.status(500).json(error);
-        });
-    console.log(response);
-}));
 
 /** Liked Products
  *

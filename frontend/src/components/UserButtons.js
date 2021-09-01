@@ -10,7 +10,7 @@ function UserButtons() {
     // const alert = useAlert();
 
     const goToCart = () => {
-        history.push("/cart");
+        history.push(routes.cart);
     }
 
     const logout = async () => {

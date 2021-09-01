@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {getProducts} from "../utils/api";
+import {getProducts, addToCart} from "../utils/api";
 import {StoreTile} from "../components/StoreTile";
 import styled from "styled-components";
 
@@ -26,13 +26,28 @@ function HairCare() {
 
   }
 
+    const addToCartFunc = async (name) => {
+        try{
+            const ans = await addToCart(name);
+            if(ans.status === 200){
+                alert("item added");
+            }
+            if(ans.status >= 400){
+                alert(await ans.text())
+            }
+        }
+        catch (e) {
+            alert("Could not reach server")
+        }
+    }
+
   useEffect(getProductsFunc,[]);
 
   return (
     <div>
       <h1>HairCare</h1>
       <StoreGrid>
-        {products.map(p=> <StoreTile name={p.name} description={p.description} price={p.price} image={p.image} addToCartCallback={()=>alert("1")} likeCallback={()=>alert("2")} />)}
+        {products.map(p=> <StoreTile name={p.name} description={p.detail} price={p.price} image={p.image} addToCartCallback={()=>addToCartFunc(p.name)} likeCallback={()=>alert("2")} />)}
       </StoreGrid>
     </div>);
 }

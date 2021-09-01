@@ -13,6 +13,10 @@ const TileContainer = styled.div`
     object-fit: cover;
     overflow: hidden;
   }
+  
+  & button {
+    color: green;
+  }
 `;
 
 export function StoreTile({name, description, image, price,addToCartCallback,likeCallback}) {
@@ -26,6 +30,7 @@ export function StoreTile({name, description, image, price,addToCartCallback,lik
       <div>
         <h1>{name}</h1>
         <p>{description}</p>
+        <h5>Price: {price}$</h5>
         <button onClick={likeCallback}>Like</button>
         <button onClick={addToCartCallback}>Add to cart</button>
       </div>}

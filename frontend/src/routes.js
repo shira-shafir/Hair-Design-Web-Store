@@ -8,5 +8,6 @@ export const routes = {
   store:'/HairCare',
   readmeEitan:'/ReadMeEitan',
   doYou:'/DoYourStyle',
-  products_liked: '/Liked'
+  products_liked: '/Liked',
+  cart: '/cart'
 }

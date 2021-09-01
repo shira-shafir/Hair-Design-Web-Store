@@ -12,6 +12,7 @@ import FindAStylist from "./components/FindAStylist";
 import DoYourStyle from "./components/DoYourStyle";
 import HairCare from "./pages/HairCare";
 import Liked from "./components/Liked";
+import Cart from './components/Cart.js';
 import LikedProducts from "./components/Liked";
 // import ReadMeEitan from "../../src/components/ReadMeEitan";
 function App() {
@@ -47,6 +48,9 @@ function App() {
           </Route>
           <Route path={routes.store}>
             <HairCare/>
+          </Route>
+          <Route path={routes.cart}>
+            <Cart/>
           </Route>
           //TODO: add "liked products"
           {/*<Route path={routes.stylist}>*/}

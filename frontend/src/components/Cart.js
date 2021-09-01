@@ -1,49 +1,75 @@
 import React, {useEffect, useState} from "react";
-// import {FaTimes} from 'react-icons/fa';
 import CartProduct from "./CartProduct";
-// import imgSRC from "./assets/AGEbeautiful.jpg";
+import {getUserCart, removeFromCart, checkout} from "../utils/api";
 
-async function Cart(props) {
+function Cart() {
     const [cart, setCart] = useState([]);
 
-    useEffect(() => {
-        setCart(props.user.cart.map(product => ({
-                name: product.name,
-                amount: product.amount,
-                price: product.price,
-            }))
-        )
-    }, [props.user]);
+    const getUserCartFunc = async () => {
+        try {
+            const ans = await getUserCart();
 
-    const fetchFromServer = async () => {
-        let response = await fetch('http://localhost:3009/cart/', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            credentials: 'include',
-        });
-        if (response.status === 200) {
-            setCart(await response.json());
-        } else if (response.status === 500) {
-            alert.error("Unexpected Error, Please Try Again");
+            if (ans.status === 200) {
+                setCart(await ans.json());
+            }
+        } catch (e) {
+            alert(e);
+            alert("Could not reach server");
+        }
+    }
+
+    useEffect(getUserCartFunc, []);
+
+    const removeFromCartFunc = async (name) => {
+        try {
+            const ans = await removeFromCart(name);
+
+            if (ans.status === 200) {
+                setCart(await ans.json());
+            }
+        } catch (e) {
+            alert(e);
+            alert("Could not reach server");
+        }
+    }
+
+    const checkoutFunc = async () => {
+        try {
+            const ans = await checkout();
+
+            if (ans.status === 200) {
+                alert("checkout complete")
+            }
+        } catch (e) {
+            alert(e);
+            alert("Could not reach server");
         }
     }
 
 
+//todo: add checkout button
+    //todo: check if cart empty, if working
+
     return (
-        //todo: add checkout button
-        //todo: check if cart empty, if working
-
         <div>
-            <button type="button" onClick={console.log("checkout")}>Checkout</button>
-            {cart.map(product => {
-                return <CartProduct name={product.name}
-                                    price={product.price}
-                                    amount={product.amount}
-                />
-            })}
+            {cart ?
+                <div>
+                    <button type="button" onClick={checkoutFunc}>Checkout</button>
+                    <div>
+                        {cart.map(cartItem => <CartProduct name={cartItem.product.name}
+                                                           price={cartItem.product.price}
+                                                           amount={cartItem.amount}
+                                                           key={cartItem.product.name}
+                                                           removeCallback={() => removeFromCartFunc(cartItem.product.name)}
+                            />
+                        )}
+                    </div>
 
+                </div> :
+                <div>
+                    <h1>Cart is empty</h1>
+                </div>
+            }
         </div>
     );
 }
