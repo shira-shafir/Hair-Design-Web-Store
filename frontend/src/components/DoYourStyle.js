@@ -23,7 +23,7 @@ function DoYourOwnStyle() {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen/>
             <div style={bubble}>
-                <text>
+                <span>
                     <b>Or text the advice of L'OREAL:</b> <br/>
                     Whether you’re on the hunt for a whimsical hairstyle straight out of a fairytale storybook or are
                     simply trying to find the best way to disguise your second-day hair, we’ll be the first to say that
@@ -101,7 +101,7 @@ function DoYourOwnStyle() {
                     Step #4: Repeat On The Other Side
                     Remove the hair clip from the left side of your hair and repeat steps one through three to create a
                     second braid.
-                </text>
+                </span>
             </div>
         </div>
     );

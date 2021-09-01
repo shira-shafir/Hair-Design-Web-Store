@@ -27,9 +27,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(cors({
     origin: "http://localhost:3000",
-    credential: true,
-    optionSuccessStatus: 200,
-
+    credentials: true,
 }));
 
 app.use(cookieParser());
@@ -44,11 +42,12 @@ app.use(session({
         maxAge: 1000 * 60 * 30, // session max age in miliseconds
     }
 }));
+
 /** get products
  *
  */
 app.get("/products", (async (req, res) => {
-    res.status(200).send(await getData(usersJson));
+    res.status(200).send(await getData(productsJson));
 }))
 /** get users
  *
@@ -104,13 +103,13 @@ app.post(`/register`, async (req, res, next) => {
 app.post(`/login`, async (req, res, next) => {
     if (req.session.user) {
         console.log("Already logged in");
-        res.status(500).json("User is already logged in");
+        res.status(400).json("User is already logged in");
         return;
     }
     let user = {username: req.body.username, password: req.body.password};
     if (user.username === undefined || user.password === undefined || user.username.length === 0 || user.password.length === 0) {
         console.log("error, invalid data");
-        res.status(500).json("error, invaild data!");
+        res.status(400).json("error, invalid data!");
         return;
     }
     let data = await getData(usersJson);
@@ -118,7 +117,7 @@ app.post(`/login`, async (req, res, next) => {
     let index = usernames.indexOf(user.username);
     if (index === -1) {
         console.log("users not exists");
-        res.status(500).json("user not exists");
+        res.status(400).json("User does not exist");
         return;
     }
     let passes = data.map(obj => obj.password);
@@ -158,17 +157,17 @@ app.post(`/login`, async (req, res, next) => {
 /** Logout
  *
  */
-app.get("/logout", async (req, res) => {
+app.post("/logout", async (req, res) => {
     // clear the cookie
     if (!req.session.user) {
         console.log("Not logged in");
-        res.status(500).json("User not logged in");
+        res.status(400).json("User not logged in");
         return;
     }
     let userID = req.session.user;
     let data = await getData(usersJson);
     let usernames = data.map(obj => obj.username);
-    let index = usernames.indexOf(userID.id);
+    let index = usernames.indexOf(req.session.id);
     let date = new Date().toUTCString();
     let userInFile = data[index];
     let temp;
@@ -186,7 +185,7 @@ app.get("/logout", async (req, res) => {
     });
     res.clearCookie('connect.sid', {path: '/'}).status(200).send({message: "Logged Out Successfully"});
     // redirect to login
-    return res.redirect("/login");
+    return "ok";
 });
 /** Get admin cart
  *

@@ -4,32 +4,39 @@ import '../components/css/login.css';
 
 function Login() {
 
-
     const [username, setUsername] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     const [rememberMe, setRememberMe] = useState(false);
 
 
     const login = async () => {
-        let user = {
+
+        const user = {
             username: username,
             password: password,
             rememberMe: rememberMe
         };
+        try{
+            let response = await fetch('http://localhost:3009/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                credentials: 'include',
+                body: JSON.stringify(user)
+            });
 
-        let response = await fetch('http://localhost:3009/login', {
-            method: 'POST',
+            if( response.status === 200){
+                alert("Success")
+            }
 
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-
-                'Access-Control-Allow-Origin': '*'
-
-            },
-            credentials: 'true',
-            body: JSON.stringify(user)
-        }).then(() => alert("Success"))
-            .catch(() => alert("Unexpected Error,invalid data"));
+            if( response.status >= 400){
+                alert(await response.text());
+            }
+        }
+        catch (e)  {
+            alert("Unexpected Error,invalid data");
+        }
     }
 
     return (
@@ -55,7 +62,7 @@ function Login() {
                     <br/>
                     <input type="checkbox"
                            onChange={() => setRememberMe(!rememberMe)}/>
-                    <text>Remember Me</text>
+                    <span>Remember Me</span>
                 </div>
                 <div>
                     <button type="button" onClick={login}> login</button>

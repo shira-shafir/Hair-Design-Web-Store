@@ -40,6 +40,9 @@ function App() {
           <Route path={routes.doYou}>
             <DoYourStyle/>
           </Route>
+          <Route path={routes.store}>
+            <HairCare/>
+          </Route>
           //TODO: add "liked products"
           {/*<Route path={routes.stylist}>*/}
           {/*  <Liked/>*/}

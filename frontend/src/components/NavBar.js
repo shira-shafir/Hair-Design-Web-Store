@@ -38,9 +38,9 @@ function NavBar() {
     }
 
     return (
-        <nav class="navbar navbar-default">
+        <nav className="navbar navbar-default">
             <div className="navbar-header">
-                <ul class="nav navbar-nav">
+                <ul className="nav navbar-nav">
                     <Link to="/home" style={linkStyles}>Home</Link>
                     <Link to="/HairCare" style={linkStyles}>Store: Hair Care</Link>
                     <Link to="/quiz" style={linkStyles}>Quiz</Link>

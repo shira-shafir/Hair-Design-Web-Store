@@ -6,3 +6,7 @@ export const getUser = async () => {
   });
 
 }
+
+export const getProducts = async () => {
+  return await fetch(api_url + '/products',);
+}

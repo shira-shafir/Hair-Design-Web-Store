@@ -2,6 +2,7 @@ import React from "react";
 import {Link, useHistory} from "react-router-dom";
 // import { useAlert } from "react-alert";
 import shoppingCart from "../assets/shoppingCart.png";
+import {routes} from "../routes";
 
 function UserButtons() {
 
@@ -13,23 +14,28 @@ function UserButtons() {
     }
 
     const logout = async () => {
-        let response = await fetch('http://localhost:3009/logout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            credentials: 'include'
-        });
+        try{
+            let response = await fetch('http://localhost:3009/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                credentials: 'include',
+            });
 
-        if (response.status === 204) {
-            document.cookie = "sid= ; max-age=0; path=/ ";
-            alert("Goodbye!")
-            history.push("/login");
+            if (response.status === 200) {
+                // document.cookie = "sid= ; max-age=0; path=/ ";
+                alert("Goodbye!");
+                history.push(routes.login);
+            }
+
+            if (response.status >= 400) {
+                alert(await response.text());
+            }
         }
-        else if (response.status === 500) {
+        catch {
             alert("Unexpected Error, Please Try Again");
         }
-        history.push("http://localhost:3009/login");
     }
 
     const headerStyles = {
@@ -52,7 +58,7 @@ function UserButtons() {
     return (
         <p style={headerStyles}>
             <img src={shoppingCart} style={imgStyle} onClick={goToCart}/>
-            <text> | </text>
+            <span> | </span>
             <button onClick={logout}><Link to="/logout">Log Out</Link></button>
         </p>
     );

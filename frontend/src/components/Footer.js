@@ -14,7 +14,7 @@ function Footer() {
     }
 
     const floating = {
-        position: "absolute",
+
         left: "10px",
         paddingTop: "11px",
         textAlign: "left",
@@ -24,23 +24,27 @@ function Footer() {
 
 
     return(
-        <footer class="footer-distributed">
-            <div style={floating}>
-                <img src={SoH4} style={logoStyles}/>
-                <br/>
-                <text>Shira Shafir and Eitan Alroy</text>
-                <br/>
-                <text style={textStyle}> Shape of Hue © 2021</text>
-            </div>
-            <div className="footer-right">
-                <p>Contact Us</p>
-                <form action="mailto:shirashafir@gmail.com" method="post">
-                    <input type="text" name="email" placeholder="Email"/>
-                    <textarea name="message" placeholder="Message"/>
-                    <button>Send</button>
-                </form>
-            </div>
-        </footer>
+      <>
+          <div style={{flexGrow:1}}/>
+          <footer className="footer-distributed">
+              <div style={floating}>
+                  <img src={SoH4} style={logoStyles}/>
+                  <br/>
+                  <span>Shira Shafir and Eitan Alroy</span>
+                  <br/>
+                  <span style={textStyle}> Shape of Hue © 2021</span>
+              </div>
+              <div className="footer-right">
+                  <p>Contact Us</p>
+                  <form action="mailto:shirashafir@gmail.com" method="post">
+                      <input type="text" name="email" placeholder="Email"/>
+                      <textarea name="message" placeholder="Message"/>
+                      <button>Send</button>
+                  </form>
+              </div>
+          </footer>
+      </>
+
     );
 }
 
