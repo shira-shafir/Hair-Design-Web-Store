@@ -8,7 +8,10 @@ import { routes } from "./routes";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
-
+import FindAStylist from "./components/FindAStylist";
+import DoYourStyle from "./components/DoYourStyle";
+import HairCare from "./pages/HairCare";
+// import ReadMeEitan from "../../src/components/ReadMeEitan";
 function App() {
   return (
     <div id={"App"}>
@@ -31,6 +34,19 @@ function App() {
           <Route path={routes.quiz}>
             <Quiz/>
           </Route>
+          <Route path={routes.stylist}>
+            <FindAStylist/>
+          </Route>
+          <Route path={routes.doYou}>
+            <DoYourStyle/>
+          </Route>
+          //TODO: add "liked products"
+          {/*<Route path={routes.stylist}>*/}
+          {/*  <Liked/>*/}
+          {/*</Route>*/}
+          {/*<Route path={routes.readmeEitan}>*/}
+          {/*  <ReadMeEitan/>*/}
+          {/*</Route>*/}
         </Switch>
         <Footer/>
       </Router>

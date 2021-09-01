@@ -12,5 +12,10 @@
     "start-server": "cd backend && npm start",
     "build-client": "cd frontend && npm install && npm run build",
     "build-server": "cd backend && npm install"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "react-player": "^2.9.0",
+    "react-youtube": "^7.13.1"
   }
 }

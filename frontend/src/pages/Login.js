@@ -19,19 +19,17 @@ function Login() {
 
         let response = await fetch('http://localhost:3009/login', {
             method: 'POST',
-            // credentials: 'true',
+
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+
+                'Access-Control-Allow-Origin': '*'
+
             },
+            credentials: 'true',
             body: JSON.stringify(user)
-        });
-
-        if (response.status === 200) {
-            alert("Success");
-        } else if (response.status === 500) {
-            alert("Unexpected Error,invalid data");
-        }
-
+        }).then(() => alert("Success"))
+            .catch(() => alert("Unexpected Error,invalid data"));
     }
 
     return (
@@ -57,7 +55,7 @@ function Login() {
                     <br/>
                     <input type="checkbox"
                            onChange={() => setRememberMe(!rememberMe)}/>
-                    <text >Remember Me</text>
+                    <text>Remember Me</text>
                 </div>
                 <div>
                     <button type="button" onClick={login}> login</button>
@@ -66,4 +64,5 @@ function Login() {
         </div>
     );
 }
+
 export default Login;

@@ -13,7 +13,7 @@ function UserButtons() {
     }
 
     const logout = async () => {
-        let response = await fetch('/logout', {
+        let response = await fetch('http://localhost:3009/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -29,7 +29,7 @@ function UserButtons() {
         else if (response.status === 500) {
             alert("Unexpected Error, Please Try Again");
         }
-        history.push("/login");
+        history.push("http://localhost:3009/login");
     }
 
     const headerStyles = {
@@ -51,9 +51,9 @@ function UserButtons() {
 
     return (
         <p style={headerStyles}>
-            <img src={shoppingCart} style={imgStyle}/>
+            <img src={shoppingCart} style={imgStyle} onClick={goToCart}/>
             <text> | </text>
-            <Link to="/logout">Log Out</Link>
+            <button onClick={logout}><Link to="/logout">Log Out</Link></button>
         </p>
     );
 }

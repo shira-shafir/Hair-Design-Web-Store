@@ -1,6 +1,5 @@
 import React from "react"
 
-// import  "./css/quiz.css"
 function Quiz() {
     const selectStyle = {
         border: "1px solid #3C1C78",

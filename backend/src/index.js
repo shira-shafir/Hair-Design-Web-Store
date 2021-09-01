@@ -27,8 +27,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(cors({
     origin: "http://localhost:3000",
-    credential: true
+    credential: true,
+    optionSuccessStatus: 200,
+
 }));
+
 app.use(cookieParser());
 app.use(session({
     store: new sessionStore(),
@@ -430,10 +433,104 @@ app.get("/cart/:userId", (async (req, res) => {
         });
     console.log(response);
 }));
+
+/** Liked Products
+ *
+ */
+app.post("/likeorunlike", async (req, res, next) => {
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500).send("User not logged in!");
+        return;
+    }
+    let userid = req.session.user;
+    let users = await (getData(usersJson));
+    let userIds = users.map(obj => obj.id);
+    let userIndex = userIds.indexOf(userid);
+    let user = users[userIndex];
+    let productsLiked = user.products_liked;
+    let productName = req.body.productname;
+    let temp;
+    if (productsLiked.map(obj => obj.name).indexOf(productName) !== -1) {
+        temp = productsLiked.filter(obj => obj.name !== productName);
+    } else {
+        let products = await (getData(productsJson));
+        let productsnames = products.map(obj => obj.name);
+        let prodIndex = productsnames.indexOf(productName);
+        let product = products[prodIndex];
+        productsLiked.push(product);
+        temp = productsLiked;
+    }
+    await updateInJSON(usersJson, userIndex, "products_liked", temp);
+    res.status(200).json(temp);
+});
+
+app.get("/likedproducts", async (req, res, next) => {
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500).send("User not logged in!");
+        return;
+    }
+    let userid = req.session.user;
+    let users = await (getData(usersJson));
+    let userIds = users.map(obj => obj.id);
+    let userIndex = userIds.indexOf(userid);
+    let user = users[userIndex];
+    res.status(200).json(user.products_liked);
+});
+/**
+ * Quiz
+ */
+const hamming = async (data, quizAnswer) => {
+    let products = data.map(obj => [obj.hairColor, obj.hairLength, obj.hairTexture]);
+    let hamming_map = [];
+    for (let i = 0; i < products.length; i++) {
+        let count = 0;
+        if (quizAnswer.hairColor !== products[i][0]) {
+            count += 1;
+        }
+        if (quizAnswer.hairLength !== products[i][1]) {
+            count += 1;
+        }
+        if (quizAnswer.hairTexture !== products[i][2]) {
+            count += 1;
+        }
+        hamming_map[i] = count;
+    }
+    return hamming_map;
+}
+
+const recommend_and_similar_to = async (quizAnswer) => {
+    let products = await getData(productsJson);
+    let hamming_map = await hamming(products, quizAnswer);
+    let index = hamming_map.indexOf(0);
+    let recommended_product = products[index];
+    let similar_products = [];
+    for (let i = 0; i < products.length; i++) {
+        if (hamming_map[i] === 1) {
+            similar_products.push(products[i]);
+        }
+    }
+    return {recommended_product: recommended_product, similar_products: similar_products};
+};
+
+app.post("/quiz", async (req, res) => {
+    if (!req.session.user) {
+        console.log("Not logged in");
+        res.status(500).send("User not logged in!");
+        return;
+    }
+    let quizAnswer = {
+        hairColor: req.body.hairColor,
+        hairLength: req.body.hairLength,
+        hairTexture: req.body.hairTexture
+    };
+    let result = await recommend_and_similar_to(quizAnswer);
+    res.status(200).json(result);
+});
 /** App listen
  *
  */
-
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);
 });
