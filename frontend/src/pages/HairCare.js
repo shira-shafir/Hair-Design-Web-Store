@@ -3,7 +3,7 @@ import {getProducts, addToCart} from "../utils/api";
 import {StoreTile} from "../components/StoreTile";
 import styled from "styled-components";
 
-const StoreGrid = styled.div`
+export const StoreGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 `;

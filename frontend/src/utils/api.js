@@ -38,3 +38,14 @@ export const checkout = async () => {
     method: 'POST'
   });
 }
+
+export const submitQuiz = async (answers) => {
+  return await fetch(api_url + '/quiz',{
+    credentials: "include",
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(answers)
+  });
+}

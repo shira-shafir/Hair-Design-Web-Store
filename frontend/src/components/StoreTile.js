@@ -31,8 +31,8 @@ export function StoreTile({name, description, image, price,addToCartCallback,lik
         <h1>{name}</h1>
         <p>{description}</p>
         <h5>Price: {price}$</h5>
-        <button onClick={likeCallback}>Like</button>
-        <button onClick={addToCartCallback}>Add to cart</button>
+        {likeCallback && <button onClick={likeCallback}>Like</button>}
+        {addToCartCallback &&  <button onClick={addToCartCallback}>Add to cart</button>}
       </div>}
     </TileContainer>
   )
