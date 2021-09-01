@@ -46,7 +46,7 @@ function NavBar() {
                     <Link to="/quiz" style={linkStyles}>Quiz</Link>
                     <Link to="/FindAStylist" style={linkStyles}>Find A Stylist</Link>
                     <Link to="/DoYourStyle" style={linkStyles}>Braid it like a Pro!</Link>
-                    <Link to="/" style={linkStyles}>Liked Products</Link>
+                    <Link to="/Liked" style={linkStyles}>Liked Products</Link>
                     <Link to="/readmeShira" style={linkStyles}>About Us: Shira</Link>
                     <Link to="/ReadMeEitan" style={linkStyles}>About Us: Eitan</Link>
                     {/*<AdminRoute to="/" component={adminLink} />*/}
