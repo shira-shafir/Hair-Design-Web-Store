@@ -6,6 +6,11 @@ export const getUser = async () => {
   });
 
 }
+export const getUsers = async () => {
+  return await fetch(api_url + '/users', {
+    credentials: "include"
+  });
+}
 
 export const getProducts = async () => {
   return await fetch(api_url + '/products',);
@@ -19,14 +24,19 @@ export const addToCart = async (name) => {
 }
 
 export const searchProduct = async (name) => {
-  return await fetch(api_url + '/search/productquery'+name,{
+  return await fetch(api_url + '/search/'+name,{
     credentials: "include",
-    method: 'POST'
   });
 }
 
-export const LikeorUnlike = async () => {
-  return await fetch(api_url + '/likeorunlike',{
+export const searchUsersInAdmin = async (name) => {
+  return await fetch(api_url + '/admin/searchUser/'+name,{
+    credentials: "include",
+  });
+}
+
+export const LikeorUnlike = async (name) => {
+  return await fetch(api_url + '/likeorunlike/'+name,{
     credentials: "include",
     method: 'POST'
   });

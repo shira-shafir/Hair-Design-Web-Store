@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 
 function DoYourOwnStyle() {
@@ -6,15 +6,15 @@ function DoYourOwnStyle() {
         // position: "relative",
         top:"0",
         bottom:"",
-        width:"50%",
-        height:"10000x",
+        width:"98%",
+        height:"1000px",
         border: "20px solid",
         borderTopColor: "#00aabb",
         borderRightColor: "#4FC1E9",
         borderLeftColor: "#4FC1E9",
         borderBottomColor: "#00aabb",
         borderLeft: "0",
-        marginLeft: "400px"
+        marginLeft:"10px"
 
     }
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-
+import {Link } from "react-router-dom";
 import '../components/css/login.css';
 
 function Login() {
@@ -66,6 +66,11 @@ function Login() {
                 </div>
                 <div>
                     <button type="button" onClick={login}> login</button>
+                    <Link to="/register">
+                        <button type="button">
+                            Go to register
+                        </button>
+                    </Link>
                 </div>
             </form>
         </div>

@@ -12,8 +12,6 @@ function Quiz() {
 
     const selectStyle = {
         border: "1px solid #3C1C78",
-        textAlign:"right",
-        marginLeft:"400px",
         outline: "none",
         background: "transparent",
         borderRadius: "0",
@@ -27,13 +25,26 @@ function Quiz() {
         outline: "0",
         padding: "12px",
         color: "white",
-        backgroundColor: "#000",
+        backgroundColor: "#232121",
         textAlign: "center",
         cursor: "pointer",
         width: "100%",
         fontSize: "18px",
         boxSizing: "content-box"
     }
+    const centerDiv ={
+        textAlign:"center",
+    }
+    const h1Style ={
+        color:"#6a4dad",
+        fontFamily:"Great Vibes, cursive",
+        fontSize: "60px",
+        lineHeight:"160px",
+        fontWeight:"normal",
+        textShadow:"0 1px 1px #fff"
+    }
+
+
 
     const submit = async () => {
         try {
@@ -48,9 +59,10 @@ function Quiz() {
         }
     }
 
+
     return (
-        <div>
-            <h1>Quiz</h1>
+        <div style={centerDiv}>
+            <h1 style={h1Style}>Find Your Perfect Product!</h1>
 
             <h5>What is your Hair Color?</h5>
             <br/>

@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
-import './css/findStylist.css';
+import '../components/css/findStylist.css';
 
 function FindAStylist() {
 

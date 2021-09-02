@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './css/readmeEitan.css';
+import '../components/css/readmeEitan.css';
 
 function ReadMeEitan() {
 
@@ -45,14 +45,12 @@ function ReadMeEitan() {
                     </tr>
                     <tr>
                         <td>Who is your partner?</td>
-                        <td>Shira Shafir 👑</td>
+                        <td>Shira Shafir 313174088👑</td>
                     </tr>
                     <tr>
                         <td>What did you do?</td>
                         <td>
-                            I did the front-end and additional pages.
-                            {/*<br/>With a bit of a supporting hand helping with some back functionality*/}
-                            {/*<br/>like hashing the passwords and a bit more.*/}
+                            I  did the front-end and additional pages.
                         </td>
                     </tr>
                     <tr>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import CartProduct from "./CartProduct";
+import CartProduct from "../components/CartProduct";
 import {getUserCart, removeFromCart, checkout} from "../utils/api";
 
 function Cart() {
@@ -38,7 +38,8 @@ function Cart() {
             const ans = await checkout();
 
             if (ans.status === 200) {
-                alert("checkout complete")
+                alert("checkout complete");
+                window.location.reload(true);
             }
         } catch (e) {
             alert(e);

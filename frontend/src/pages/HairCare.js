@@ -9,78 +9,80 @@ export const StoreGrid = styled.div`
 `;
 
 function HairCare() {
-  const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
 
-  const getProductsFunc = async () => {
-    try{
-      const ans = await getProducts();
+    const getProductsFunc = async () => {
+        try {
+            const ans = await getProducts();
 
-      if(ans.status === 200){
-        setProducts(await ans.json());
-      }
-
-    }
-    catch (e) {
-     alert("Could not retrieve products from server")
-    }
-
-  }
-
-    // const searchProductFunc = async (name) => {
-    //     try{
-    //         const ans = await searchProduct(name);
-    //         if(ans.status === 200){
-    //             alert("item found");
-    //         }
-    //         if(ans.status >= 400){
-    //             alert(await ans.text())
-    //         }
-    //     }
-    //     catch (e) {
-    //         alert("Could not reach server")
-    //     }
-    // }
-
-    const addToCartFunc = async (name) => {
-        try{
-            const ans = await addToCart(name);
-            if(ans.status === 200){
-                alert("item added");
+            if (ans.status === 200) {
+                setProducts(await ans.json());
             }
-            if(ans.status >= 400){
+
+        } catch (e) {
+            alert("Could not retrieve products from server")
+        }
+
+    }
+
+    const searchProductFunc = async () => {
+        try {
+            const ans = await searchProduct(searchValue);
+            if (ans.status === 200) {
+                setProducts(await ans.json());
+            }
+            if (ans.status >= 400) {
                 alert(await ans.text())
             }
-        }
-        catch (e) {
+        } catch (e) {
             alert("Could not reach server")
         }
     }
 
-    //
-    // const likeOrUnlikeFunc = async () => {
-    //     try{
-    //         const ans = await LikeorUnlike();
-    //         if(ans.status === 200){
-    //             alert("item liked");
-    //         }
-    //         if(ans.status >= 400){
-    //             alert(await ans.text())
-    //         }
-    //     }
-    //     catch (e) {
-    //         alert("Could not reach server")
-    //     }
-    // }
+    const addToCartFunc = async (name) => {
+        try {
+            const ans = await addToCart(name);
+            if (ans.status === 200) {
+                alert("item added");
+            }
+            if (ans.status >= 400) {
+                alert(await ans.text())
+            }
+        } catch (e) {
+            alert("Could not reach server")
+        }
+    }
 
-  useEffect(getProductsFunc,[]);
 
-  return (
-    <div>
-        <input type="text" placeholder="Search.." />
-      <StoreGrid>
-        {products.map(p=> <StoreTile name={p.name} description={p.detail} price={p.price} image={p.image} addToCartCallback={()=>addToCartFunc(p.name)} likeCallback={()=>alert("2")} />)}
-      </StoreGrid>
-    </div>);
+    const likeOrUnlikeFunc = async (name) => {
+        try {
+            const ans = await LikeorUnlike(name);
+            if (ans.status === 200) {
+                alert("item liked");
+            }
+            if (ans.status >= 400) {
+                alert(await ans.text())
+            }
+        } catch (e) {
+            alert("Could not reach server")
+        }
+    }
+
+    useEffect(getProductsFunc, []);
+
+    return (
+        <div>
+            <div>
+                <input value={searchValue} onChange={(e)=>setSearchValue(e.target.value)} placeholder="Search.."/>
+                <button onClick={searchProductFunc}>Search</button>
+            </div>
+            <StoreGrid>
+                {products.map(p => <StoreTile name={p.name} description={p.detail} price={p.price} image={p.image}
+                                              addToCartCallback={() => addToCartFunc(p.name)}
+                                              likeCallback={() => likeOrUnlikeFunc(p.name)}/>)}
+            </StoreGrid>
+        </div>);
 }
 
 export default HairCare

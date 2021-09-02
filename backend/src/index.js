@@ -66,7 +66,7 @@ app.post(`/register`, async (req, res, next) => {
         return;
     }
     let user = {
-        id: generateUserId(),
+        id: await generateUserId(),
         username: req.body.username,
         password: bcrypt.hashSync(req.body.password, salt), // edited
         cart: [],
@@ -120,8 +120,8 @@ app.post(`/login`, async (req, res, next) => {
         res.status(400).json("User does not exist");
         return;
     }
-    let passes = data.map(obj => obj.password);
-    if (!bcrypt.compareSync(user.password, passes[index])) { //edited
+    // let passes = data.map(obj => obj.password);
+    if (!bcrypt.compareSync(user.password, data[index].password)) { //edited
         console.log("wrong password");
         res.status(500).json("Wrong password");
         return;
@@ -146,9 +146,8 @@ app.post(`/login`, async (req, res, next) => {
     await updateInJSON(usersJson, index, "sessions", temp1);
     userInFile.password = undefined;
     req.session.user = userInFile.id;
-    req.session.cart = userInFile.cart;
     if (req.body.rememberMe) {
-        req.session.cookie.maxAge = Number.MAX_SAFE_INTEGER;
+        req.session.cookie.maxAge = 1000*60*60*24*30;
     }
     console.log(userInFile);
     res.status(200).json(userInFile);
@@ -164,10 +163,9 @@ app.post("/logout", async (req, res) => {
         res.status(400).json("User not logged in");
         return;
     }
-    let userID = req.session.user;
     let data = await getData(usersJson);
-    let usernames = data.map(obj => obj.username);
-    let index = usernames.indexOf(req.session.id);
+    let userIds = data.map(obj => obj.id);
+    let index = userIds.indexOf(req.session.user);
     let date = new Date().toUTCString();
     let userInFile = data[index];
     let temp;
@@ -214,15 +212,15 @@ app.post("/admin/getcurrentcart/:username", async (req, res, next) => {
 /** search product
  *
  */
-app.post("/search/productquery", async (req, res, next) => {
+app.get("/search/:productname", async (req, res, next) => {
     if (!req.session.user) {
         console.log("Not logged in");
         res.status(500).json("User not logged in");
         return;
     }
-    let query = req.body.query;
+    let query = req.params.productname.toLowerCase();
     let products = await getData(productsJson);
-    res.status(200).json(products.filter(obj => obj.name.startsWith(query)));
+    res.status(200).json(products.filter(obj => obj.name.toLowerCase().includes(query)));
 });
 /** Add to cart
  *
@@ -334,7 +332,7 @@ app.post("/cart/checkout", async (req, res, next) => {
 /** Admin
  *
  */
-app.post("/admin/searchUser", async (req, res, next) => {
+app.get("/admin/searchUser/:username", async (req, res, next) => {
     if (!req.session.user) {
         console.log("Not logged in");
         res.status(500).json("user not logged in");
@@ -346,7 +344,7 @@ app.post("/admin/searchUser", async (req, res, next) => {
         res.status(500).json("User is not a Admin");
         return;
     }
-    let userFinder = req.body.query;
+    let userFinder = req.params.username;
     let usergetData = await getData(usersJson);
     res.status(200).json(usergetData.filter(obj => obj.username.startsWith(userFinder)));
 })
@@ -394,7 +392,7 @@ async function getUserCart(req, res) {
 /** Liked Products
  *
  */
-app.post("/likeorunlike", async (req, res, next) => {
+app.post("/likeorunlike/:productname", async (req, res, next) => {
     if (!req.session.user) {
         console.log("Not logged in");
         res.status(500).send("User not logged in!");
@@ -406,7 +404,7 @@ app.post("/likeorunlike", async (req, res, next) => {
     let userIndex = userIds.indexOf(userid);
     let user = users[userIndex];
     let productsLiked = user.products_liked;
-    let productName = req.body.productname;
+    let productName = req.params.productname;
     let temp;
     if (productsLiked.map(obj => obj.name).indexOf(productName) !== -1) {
         temp = productsLiked.filter(obj => obj.name !== productName);
@@ -435,6 +433,7 @@ app.get("/likedproducts", async (req, res, next) => {
     let user = users[userIndex];
     res.status(200).json(user.products_liked);
 });
+
 /**
  * Quiz
  */
