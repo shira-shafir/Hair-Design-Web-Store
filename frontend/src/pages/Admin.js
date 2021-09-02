@@ -1,8 +1,25 @@
 import React, {useEffect, useState} from "react";
 import User from "../components/User";
 import {getUsers, searchProduct, searchUsersInAdmin} from "../utils/api";
+import '../components/css/admin.css';
+import {useHistory} from "react-router-dom";
+import {useUser} from "../hooks/useUser";
+import {routes} from "../routes";
 
 function Admin() {
+    const history = useHistory();
+    const isLogged = useUser();
+
+    if (isLogged === false){
+        console.log("User not logged in");
+        history.push(routes.login);
+    }
+
+    if (isLogged && isLogged.isAdmin !== true){
+        console.log("User not admin");
+        history.push(routes.home);
+    }
+
     const [users, setUsers] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 
@@ -42,8 +59,8 @@ function Admin() {
 
     return (
         <div style={centerDiv}>
-            <div>
-                <input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search.."/>
+            <div class="search">
+                <input value={searchValue} onChange={(e) => setSearchValue(e.target.value) } placeholder="Search.." />
                 <button onClick={searchUsersInAdminFunc}>Search</button>
             </div>
             {users.map(user => <User username={user.username}

@@ -11,7 +11,7 @@ import NavBar from "./components/NavBar";
 import FindAStylist from "./pages/FindAStylist";
 import DoYourStyle from "./pages/DoYourStyle";
 import HairCare from "./pages/HairCare";
-import Liked from "./components/Liked";
+import Liked from "./pages/Liked";
 import Cart from './pages/Cart.js';
 import ReadMeShira from './pages/ReadMeShira'
 import ReadMeEitan from "./pages/ReadMeEitan";
@@ -45,9 +45,6 @@ function App() {
                     </Route>
                     <Route path={routes.doYou}>
                         <DoYourStyle/>
-                    </Route>
-                    <Route path={routes.products_liked}>
-                        <Liked/>
                     </Route>
                     <Route path={routes.store}>
                         <HairCare/>

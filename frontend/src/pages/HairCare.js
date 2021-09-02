@@ -2,6 +2,9 @@ import React, {useEffect, useState} from "react"
 import {getProducts, addToCart, searchProduct, LikeorUnlike} from "../utils/api";
 import {StoreTile} from "../components/StoreTile";
 import styled from "styled-components";
+import {useHistory} from "react-router-dom";
+import {useUser} from "../hooks/useUser";
+import {routes} from "../routes";
 
 export const StoreGrid = styled.div`
   display: grid;
@@ -9,6 +12,14 @@ export const StoreGrid = styled.div`
 `;
 
 function HairCare() {
+    const history = useHistory();
+    const isLogged = useUser();
+
+    if (isLogged === false){
+        console.log("User not logged in");
+        history.push(routes.login);
+    }
+
     const [products, setProducts] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 

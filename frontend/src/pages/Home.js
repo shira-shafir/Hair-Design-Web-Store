@@ -5,16 +5,23 @@ import btzLogo from "../assets/btzLogo.png"
 import ionLogo from "../assets/ionLogo.png"
 import wellaLogo from "../assets/wellaLogo.png"
 import myHair from "../assets/myHair.jpg"
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {routes} from "../routes";
-
+import {useUser} from "../hooks/useUser";
 
 
 function Home() {
+    const history = useHistory();
+    const isLogged = useUser();
 
-const imgStyle= {
-    width: "100%"
-}
+    if (isLogged === false){
+        console.log("User not logged in");
+        history.push(routes.login);
+    }
+
+    const imgStyle = {
+        width: "100%"
+    }
 
     const h2Style = {
         marginBottom: "0.5rem",
@@ -31,10 +38,9 @@ const imgStyle= {
     }
 
 
-
     return (
         <div>
-          <Link to={routes.store}> <img src={myHair} style={imgStyle}/></Link>
+            <Link to={routes.store}> <img src={myHair} style={imgStyle}/></Link>
 
             <div>
                 <h2 style={h2Style}>Top Brands</h2>

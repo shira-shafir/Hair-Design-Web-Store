@@ -1,9 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {addToCart, getLikedProducts, LikeorUnlike, removeFromCart} from "../utils/api";
-import {StoreTile} from "./StoreTile";
-import {StoreGrid} from "../pages/HairCare";
+import {StoreTile} from "../components/StoreTile";
+import {StoreGrid} from "./HairCare";
+import {useHistory} from "react-router-dom";
+import {useUser} from "../hooks/useUser";
+import {routes} from "../routes";
 
 function Liked() {
+    const history = useHistory();
+    const isLogged = useUser();
+
+    if (isLogged === false){
+        console.log("User not logged in");
+        history.push(routes.login);
+    }
+
     const [liked, setLiked] = useState([]);
 
     const getLikedProductsFunc = async () => {
@@ -24,7 +35,7 @@ function Liked() {
         try {
             const ans = await LikeorUnlike(name);
             if (ans.status === 200) {
-                alert("item uliked");
+                alert("item unliked");
                 window.location.reload(true);
             }
             if (ans.status >= 400) {

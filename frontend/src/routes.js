@@ -4,12 +4,11 @@ export const routes = {
   login: '/login',
   quiz: '/quiz',
   stylist: '/FindAStylist',
-  productsLiked:'/Liked',
   store:'/HairCare',
   readme: '/ReadMeShira',
   readmeEitan:'/ReadMeEitan',
   doYou:'/DoYourStyle',
-  products_liked: '/Liked',
+  productsLiked: '/Liked',
   cart: '/cart',
   admin:'/admin'
 }

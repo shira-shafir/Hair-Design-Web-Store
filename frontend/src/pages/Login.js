@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from "react";
-import {Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import '../components/css/login.css';
 import {useUser} from "../hooks/useUser";
+import {routes} from "../routes";
 
 function Login() {
+    const history = useHistory();
+    const isLogged = useUser();
 
     const [username, setUsername] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     const [rememberMe, setRememberMe] = useState(false);
 
-    const isLogged = useUser();
-
-    if(isLogged){
+    if (isLogged) {
         return (<div>
             <h1>You are already logged in</h1>
         </div>)
     }
-
 
     const login = async () => {
 
@@ -25,7 +25,7 @@ function Login() {
             password: password,
             rememberMe: rememberMe
         };
-        try{
+        try {
             let response = await fetch('http://localhost:3009/login', {
                 method: 'POST',
                 headers: {
@@ -35,15 +35,15 @@ function Login() {
                 body: JSON.stringify(user)
             });
 
-            if( response.status === 200){
-                alert("Success")
+            if (response.status === 200) {
+                alert("Success");
+                history.push(routes.home);
             }
 
-            if( response.status >= 400){
+            if (response.status >= 400) {
                 alert(await response.text());
             }
-        }
-        catch (e)  {
+        } catch (e) {
             alert("Unexpected Error,invalid data");
         }
     }

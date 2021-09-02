@@ -12,8 +12,8 @@ export function useUser() {
     catch (e) {
       setUser(false)
     }
-
   }
+
   
   useEffect(getUserFunc,[])
   

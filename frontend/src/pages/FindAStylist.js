@@ -1,9 +1,18 @@
 import React, {useEffect, useState} from "react";
 
 import '../components/css/findStylist.css';
+import {useHistory} from "react-router-dom";
+import {useUser} from "../hooks/useUser";
+import {routes} from "../routes";
 
 function FindAStylist() {
+    const history = useHistory();
+    const isLogged = useUser();
 
+    if (isLogged === false){
+        console.log("User not logged in");
+        history.push(routes.login);
+    }
     return (
         <div id="square">
             <div id="header">

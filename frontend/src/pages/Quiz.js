@@ -2,8 +2,19 @@ import React, {useState} from "react"
 import {submitQuiz} from '../utils/api';
 import {StoreTile} from "../components/StoreTile";
 import {StoreGrid} from "./HairCare";
+import {useHistory} from "react-router-dom";
+import {useUser} from "../hooks/useUser";
+import {routes} from "../routes";
 
 function Quiz() {
+    const history = useHistory();
+    const isLogged = useUser();
+
+    if (isLogged === false){
+        console.log("User not logged in");
+        history.push(routes.login);
+    }
+
     const [hairColor, setHairColor] = useState('Black');
     const [hairTexture, setHairTexture] = useState('Straight');
     const [hairLength, setHairLength] = useState('Long');

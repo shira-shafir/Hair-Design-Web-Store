@@ -1,7 +1,18 @@
 import React, {useEffect, useState} from "react";
+import {useHistory} from "react-router-dom";
+import {useUser} from "../hooks/useUser";
+import {routes} from "../routes";
 
 
 function DoYourOwnStyle() {
+    const history = useHistory();
+    const isLogged = useUser();
+
+    if (isLogged === false){
+        console.log("User not logged in");
+        history.push(routes.login);
+    }
+
     const bubble = {
         // position: "relative",
         top:"0",

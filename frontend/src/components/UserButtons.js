@@ -3,11 +3,16 @@ import {Link, useHistory} from "react-router-dom";
 // import { useAlert } from "react-alert";
 import shoppingCart from "../assets/shoppingCart.png";
 import {routes} from "../routes";
+import {useUser} from "../hooks/useUser";
 
 function UserButtons() {
 
     const history = useHistory();
+    const isLogged = useUser();
+
     // const alert = useAlert();
+    if (isLogged === false)
+        return null;
 
     const goToCart = () => {
         history.push(routes.cart);
@@ -24,7 +29,6 @@ function UserButtons() {
             });
 
             if (response.status === 200) {
-                // document.cookie = "sid= ; max-age=0; path=/ ";
                 alert("Goodbye!");
                 history.push(routes.login);
             }
@@ -59,7 +63,7 @@ function UserButtons() {
         <p style={headerStyles}>
             <img src={shoppingCart} style={imgStyle} onClick={goToCart}/>
             <span> | </span>
-            <button onClick={logout}><Link to="/logout">Log Out</Link></button>
+            <button onClick={logout}>Log Out</button>
         </p>
     );
 }
