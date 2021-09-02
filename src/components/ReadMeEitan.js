@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './css/readmeEitan.css';
 
-function ReadMe() {
+function ReadMeEitan() {
 
     return(
         <div className="square">
@@ -81,4 +81,4 @@ function ReadMe() {
     );
 }
 
-export default ReadMe;
+export default ReadMeEitan;

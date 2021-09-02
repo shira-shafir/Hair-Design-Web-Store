@@ -12,20 +12,28 @@ function Quiz() {
 
     const selectStyle = {
         border: "1px solid #3C1C78",
-        position: "relative",
-        overflow: "hidden",
+        textAlign:"right",
+        marginLeft:"400px",
         outline: "none",
         background: "transparent",
-        webkitAppearance: "none",
-        mozAppearance: "none",
-        appearance: "none",
         borderRadius: "0",
-        margin: "0",
-        display: "block",
-        width: "100%",
+        width: "11%",
         padding: "12px 55px 15px 15px",
-        fontSize: "14px",
-        color: " #714BB9"
+        fontSize: "30px",
+        color: " #00aabb"
+    }
+
+    const buttonStyle = {
+        border: "hidden",
+        outline: "0",
+        padding: "12px",
+        color: "white",
+        backgroundColor: "#000",
+        textAlign: "center",
+        cursor: "pointer",
+        width: "100%",
+        fontSize: "18px",
+        boxSizing: "content-box"
     }
 
     const submit = async () => {
@@ -45,7 +53,7 @@ function Quiz() {
         <div>
             <h1>Quiz</h1>
 
-            <label htmlFor="hairColor">What is your Hair Color?</label>
+            <h5>What is your Hair Color?</h5>
             <br/>
             <select value={hairColor} onChange={(e) => setHairColor(e.target.value)} id="color" name="colors"
                     style={selectStyle}>
@@ -55,22 +63,22 @@ function Quiz() {
                 <option value="Blond">Blond</option>
             </select>
             <br/>
-            <label htmlFor="hairTexture">What is your Hair Texture?</label>
+            <h5>What is your Hair Texture?</h5>
             <br/>
-            <select value={hairTexture} onChange={(e) => setHairTexture(e.target.value)} id="texture" name="texture">
+            <select value={hairTexture} style={selectStyle} onChange={(e) => setHairTexture(e.target.value)} id="texture" name="texture">
                 <option value="Straight">Straight</option>
                 <option value="Curly">Curly</option>
             </select>
             <br/>
-            <label htmlFor="hairLen">What is your Hair Length?</label>
+            <h5>What is your Hair Length?</h5>
             <br/>
-            <select value={hairLength} onChange={(e) => setHairLength(e.target.value)} id="length" name="Length">
+            <select value={hairLength} style={selectStyle} onChange={(e) => setHairLength(e.target.value)} id="length" name="Length">
                 <option value="Long">Long</option>
                 <option value="Medium">Medium</option>
                 <option value="Short">Short</option>
             </select>
-            <br/>
-            <input type="submit" onClick={submit}/>
+            <br/> <br/>
+            <input type="submit" style={buttonStyle} onClick={submit}/>
 
             {ans && <div>
                 {ans.recommended_product && <div>
