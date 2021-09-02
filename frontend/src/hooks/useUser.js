@@ -7,7 +7,7 @@ export function useUser() {
   const getUserFunc = async () => {
     try{
       const user = await getUser();
-      setUser(user);
+      setUser(await user.json());
     }
     catch (e) {
       setUser(false)

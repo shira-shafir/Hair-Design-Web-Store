@@ -97,6 +97,26 @@ app.post(`/register`, async (req, res, next) => {
     // write the file back to users.json
     res.status(200).json(user);
 });
+
+
+/** user
+ *
+ */
+app.get(`/user`, async (req, res, next) => {
+    if (!req.session.user) {
+        console.log("User not logged in");
+        res.status(200).json(false);
+        return;
+    }
+
+    let usersData = await getData(usersJson);
+    const user = usersData.find(u=> u.id === req.session.user)
+    if(!user){
+        res.status(200).json(false);
+        return;
+    }
+    res.status(200).json({id: user.id, username: user.username, isAdmin: user.isAdmin});
+});
 /** Login
  *
  */

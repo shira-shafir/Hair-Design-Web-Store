@@ -1,12 +1,21 @@
 import React, {useEffect, useState} from "react";
 import {Link } from "react-router-dom";
 import '../components/css/login.css';
+import {useUser} from "../hooks/useUser";
 
 function Login() {
 
     const [username, setUsername] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     const [rememberMe, setRememberMe] = useState(false);
+
+    const isLogged = useUser();
+
+    if(isLogged){
+        return (<div>
+            <h1>You are already logged in</h1>
+        </div>)
+    }
 
 
     const login = async () => {
