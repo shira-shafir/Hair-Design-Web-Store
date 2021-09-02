@@ -18,6 +18,25 @@ export const addToCart = async (name) => {
   });
 }
 
+export const searchProduct = async (name) => {
+  return await fetch(api_url + '/search/productquery'+name,{
+    credentials: "include",
+    method: 'POST'
+  });
+}
+
+export const LikeorUnlike = async () => {
+  return await fetch(api_url + '/likeorunlike',{
+    credentials: "include",
+    method: 'POST'
+  });
+}
+export const getLikedProducts = async () => {
+  return await fetch(api_url + '/likedproducts',{
+    credentials: "include",
+    method: 'GET'
+  });
+}
 export const removeFromCart = async (name) => {
   return await fetch(api_url + '/removefromcart/'+name,{
     credentials: "include",

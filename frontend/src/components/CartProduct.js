@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {FaTimes} from 'react-icons/fa';
 
 function CartProduct(props) {
-//TODO: add onclick remove function to Fatimes(x icon)
 
     return (
         <div>

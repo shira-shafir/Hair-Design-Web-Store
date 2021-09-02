@@ -1,6 +1,21 @@
 import React, {useState, useEffect} from 'react';
+import {getLikedProducts} from "../utils/api";
 
 function Liked() {
+    const [liked, setLiked] = useState([]);
+
+    // const getLikedProductsFunc = async () => {
+    //     try {
+    //         const ans = await getLikedProducts();
+    //
+    //         if (ans.status === 200) {
+    //             setLiked(await ans.json());
+    //         }
+    //     } catch (e) {
+    //         alert(e);
+    //         alert("Could not reach server");
+    //     }
+    // }
     // const bubble = {
     //     // position: "relative",
     //     top:"0",

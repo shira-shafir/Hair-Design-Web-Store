@@ -47,8 +47,6 @@ function Cart() {
     }
 
 
-//todo: add checkout button
-    //todo: check if cart empty, if working
 
     return (
         <div>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import {useHistory} from 'react-router-dom';
 import ASP30 from "../assets/ASP30.jpg"
 import AGEbeautiful from "../assets/AGEbeautiful.jpg"
@@ -11,17 +11,46 @@ import btzLogo from "../assets/btzLogo.png"
 import ionLogo from "../assets/ionLogo.png"
 import wellaLogo from "../assets/wellaLogo.png"
 import likeButton from "../assets/likeButton.jpg"
+import {addToCart, getProducts} from "../utils/api";
 
 // import Category from "../components/Category";
 // import ProductLine from "./ProductLine";
 
+
+
 function Home() {
+    // const [products, setProducts] = useState([]);
+    //
+    // const getProductsFunc = async () => {
+    //     try{
+    //         const ans = await getProducts();
+    //
+    //         if(ans.status === 200){
+    //             setProducts(await ans.json());
+    //         }
+    //
+    //     }
+    //     catch (e) {
+    //         alert("Could not retrieve products from server")
+    //     }
+    //
+    // }
 
-    const history = useHistory();
-
-    const goToCatalog = () => {
-        history.push("/catalog");
+    const addToCartFunc = async (name) => {
+        try{
+            const ans = await addToCart(name);
+            if(ans.status === 200){
+                alert("item added");
+            }
+            if(ans.status >= 400){
+                alert(await ans.text())
+            }
+        }
+        catch (e) {
+            alert("Could not reach server")
+        }
     }
+
     const productStyle = {
         boxShadow: "0 4px 8px 0 rgba(0, 0, 5, 0.2)",
         boxSizing: "border-box",
@@ -31,7 +60,7 @@ function Home() {
         fontFamily: "arial",
         display: "inline-block",
         whiteSpace: "revert",
-        marginLeft: "200px",
+        marginLeft: "150px",
         marginBottom: "30px",
         gridTemplateColumns:"1fr 1fr 1fr",
 
@@ -78,6 +107,9 @@ function Home() {
        display:"grid",
         gridTemplateColumns:"1fr 1fr 1fr"
     }
+
+    // useEffect(getProductsFunc,[]);
+
     return (
         <div class="OnlyAtHue">
             <h2 style={h2Style}>Only At Hue</h2>
@@ -88,7 +120,7 @@ function Home() {
                     <p style={priceStyle}>8.79</p>
                     <p className="description">Quick Dip Powders</p>
                     <p>
-                        <button style={buttonStyle}>Add to Cart</button>
+                        <button style={buttonStyle} onClick={addToCartFunc}>Add to Cart</button>
 
                     </p>
                 </li>
@@ -99,7 +131,7 @@ function Home() {
                     <p style={priceStyle}>19.99</p>
                     <p className="description">Anti-Aging Permanent Liqui-Creme Hair</p>
                     <p>
-                        <button style={buttonStyle}>Add to Cart</button>
+                        <button style={buttonStyle} onClick={addToCartFunc}>Add to Cart</button>
                     </p>
                 </li>
                 <li style={productStyle}>
@@ -108,7 +140,7 @@ function Home() {
                     <p style={priceStyle}>29.99</p>
                     <p className="description">Express NINE Level Lightener</p>
                     <p>
-                        <button style={buttonStyle}>Add to Cart</button>
+                        <button style={buttonStyle} onClick={addToCartFunc}>Add to Cart</button>
                     </p>
                 </li>
                 <li style={productStyle}>
@@ -117,7 +149,7 @@ function Home() {
                     <p style={priceStyle}>9.96</p>
                     <p className="description">20 Volume Creme Developer</p>
                     <p>
-                        <button style={buttonStyle}>Add to Cart</button>
+                        <button style={buttonStyle} onClick={addToCartFunc}>Add to Cart</button>
                     </p>
                 </li>
                 <li style={productStyle}>
@@ -126,7 +158,7 @@ function Home() {
                     <p style={priceStyle}>15.59</p>
                     <p className="description">Color Defense Sulfate Free Shampoo</p>
                     <p>
-                        <button style={buttonStyle}>Add to Cart</button>
+                        <button style={buttonStyle} onClick={addToCartFunc}>Add to Cart</button>
                     </p>
                 </li>
                 <li style={productStyle}>
@@ -135,7 +167,7 @@ function Home() {
                     <p style={priceStyle}>6.59</p>
                     <p className="description">Curling Creme</p>
                     <p>
-                        <button style={buttonStyle}>Add to Cart</button>
+                        <button style={buttonStyle} onClick={addToCartFunc}>Add to Cart</button>
                     </p>
                 </li>
             </ul>

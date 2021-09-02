@@ -18,7 +18,7 @@
 // import About from "./About";
 // import Catalog from "./Catalog"
 // import Customize from "./Customize";
-// import ReadMe from "./ReadMe";
+// import ReadMeEitan from "./ReadMeEitan";
 // import Cart from "./Cart";
 // import AdminScreen from "./AdminScreen";
 // import Quiz from "../pages/Quiz";
@@ -54,7 +54,7 @@
 //                         {/*<ProtectedRoute path='/customize' component={Customize} />*/}
 //                         <ProtectedRoute path='/Quiz' component={Quiz} />
 //                         <ProtectedRoute path='/FindAStylist' component={FindAStylist} />
-//                         {/*<Route path='/readme' component={ReadMe} />*/}
+//                         {/*<Route path='/readme' component={ReadMeEitan} />*/}
 //                         <ProtectedRoute path='/cart' component={Cart} />
 //                         <ProtectedRoute path='/checkout' component={Checkout} />
 //                         <AdminRoute path='/admin' component={AdminScreen} />
