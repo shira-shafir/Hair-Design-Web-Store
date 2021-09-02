@@ -8,6 +8,7 @@ const TileContainer = styled.div`
   width: 350px;
   overflow: hidden;
   outline: none;
+  margin-bottom: 20px;
 
 
   & h1 {
