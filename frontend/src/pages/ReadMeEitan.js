@@ -1,8 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import '../components/css/readmeEitan.css';
-import {useHistory} from "react-router-dom";
-import {useUser} from "../hooks/useUser";
-import {routes} from "../routes";
 
 function ReadMeEitan() {
 

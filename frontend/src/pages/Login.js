@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import '../components/css/login.css';
 import {useUser} from "../hooks/useUser";
 import {routes} from "../routes";
+import {getLogin} from "../utils/api";
 
 function Login() {
     const history = useHistory();
@@ -26,22 +27,14 @@ function Login() {
             rememberMe: rememberMe
         };
         try {
-            let response = await fetch('http://localhost:3009/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                },
-                credentials: 'include',
-                body: JSON.stringify(user)
-            });
-
-            if (response.status === 200) {
+            const ans = await getLogin(user);
+            if (ans.status === 200) {
                 alert("Success");
                 history.push(routes.home);
             }
 
-            if (response.status >= 400) {
-                alert(await response.text());
+            if (ans.status >= 400) {
+                alert(await ans.text());
             }
         } catch (e) {
             alert("Unexpected Error,invalid data");

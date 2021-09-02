@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {useHistory} from "react-router-dom";
 import {useUser} from "../hooks/useUser";
 import {routes} from "../routes";
+import searchIcon from '../assets/searchIcon.jpg';
 
 export const StoreGrid = styled.div`
   display: grid;
@@ -19,7 +20,7 @@ function HairCare() {
     const [products, setProducts] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 
-    if (isLogged === false){
+    if (isLogged === false) {
         console.log("User not logged in");
         history.push(routes.login);
     }
@@ -80,14 +81,26 @@ function HairCare() {
             alert("Could not reach server")
         }
     }
+    const divStyle = {
+        textAlign:"center"
+    }
+    const imgStyle = {
+        width: "30px",
+        backgroundColor: "lightblue"
+    }
+    const inputStyle ={
+        fontWeight:"400",
+        borderRadius:"25px",
+        backgroundColor: "lightblue"
+    }
 
     useEffect(getProductsFunc, []);
 
     return (
         <div>
-            <div>
-                <input value={searchValue} onChange={(e)=>setSearchValue(e.target.value)} placeholder="Search.."/>
-                <button onClick={searchProductFunc}>Search</button>
+            <div style={divStyle}>
+                <input style={inputStyle} value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search.."/>
+                <button onClick={searchProductFunc}><img src={searchIcon} style={imgStyle}/></button>
             </div>
             <StoreGrid>
                 {products.map(p => <StoreTile name={p.name} description={p.detail} price={p.price} image={p.image}

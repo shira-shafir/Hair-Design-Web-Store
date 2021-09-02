@@ -1,16 +1,15 @@
 import React from "react";
-import {Link, useHistory} from "react-router-dom";
-// import { useAlert } from "react-alert";
+import {useHistory} from "react-router-dom";
 import shoppingCart from "../assets/shoppingCart.png";
 import {routes} from "../routes";
 import {useUser} from "../hooks/useUser";
+import {getLogout} from "../utils/api";
 
 function UserButtons() {
 
     const history = useHistory();
     const isLogged = useUser();
 
-    // const alert = useAlert();
     if (isLogged === false)
         return null;
 
@@ -20,21 +19,16 @@ function UserButtons() {
 
     const logout = async () => {
         try{
-            let response = await fetch('http://localhost:3009/logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                credentials: 'include',
-            });
+            const ans = await getLogout();
 
-            if (response.status === 200) {
+            if (ans.status === 200) {
                 alert("Goodbye!");
                 history.push(routes.login);
+                window.location.reload(true);
             }
 
-            if (response.status >= 400) {
-                alert(await response.text());
+            if (ans.status >= 400) {
+                alert(await ans.text());
             }
         }
         catch {

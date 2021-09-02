@@ -1,6 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, useHistory, Link} from "react-router-dom";
-// import AdminRoute from "./AdminRoute";
+import {Link} from "react-router-dom";
 import './css/Navbar.css';
 import {routes} from "../routes";
 import {useUser} from "../hooks/useUser";
@@ -8,26 +7,7 @@ import {useUser} from "../hooks/useUser";
 
 function NavBar() {
 
-    const history = useHistory();
     const isLogged = useUser();
-
-    const imgStyle = {
-        width: "24px",
-        height:"24px",
-    }
-
-    // const navBarStyles = {
-    //     backgroundSize: "contain",
-    //     display: "flex",
-    //     justifyContent:"space-between",
-    //     flexDirection: "row",
-    //     backgroundColor: "lightblue",
-    //     height: "100px",
-    //     width:"100%",
-    //     paddingLeft: "30px",
-    //     boxSizing: "border-box",
-    //     alignItems: "center",
-    // }
 
     const linkStyles = {
         textDecoration: "none",
@@ -35,12 +15,6 @@ function NavBar() {
         paddingRight: "10px",
         fontWeight: "bold",
         fontSize: "20px"
-    }
-
-    function adminLink() {
-        return (
-           // <Link to="/admin" style={linkStyles}>Admin</Link>);
-        <br/>);
     }
 
     return (

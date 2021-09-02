@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 
 import '../components/css/findStylist.css';
 import {useHistory} from "react-router-dom";

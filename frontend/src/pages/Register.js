@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import '../components/css/login.css';
-import { useAlert } from "react-alert";
+import {getRegister} from "../utils/api";
+import {routes} from "../routes";
+import {useHistory} from "react-router-dom";
 
 function Register() {
 
     const [username, setUserName] = useState(undefined);
     const [password, setPassword] = useState(undefined);
-
+    const history = useHistory();
 
     const register= async () => {
         let user = {
@@ -14,15 +16,10 @@ function Register() {
             password: password,
         };
 
-        let response = await fetch('http://localhost:3009/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(user)
-        });
+        const response = await getRegister(user);
         if (response.status === 200) {
             alert("Registered Successfully");
+            history.push(routes.login);
         } else if (response.status === 500 ) {
             alert("Unexpected Error, Please Try Again");
         }

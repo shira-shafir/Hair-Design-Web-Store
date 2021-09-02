@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React from "react"
 
 import ageBLogo from "../assets/agebeautifulLogo.png"
 import btzLogo from "../assets/btzLogo.png"

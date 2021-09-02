@@ -1,5 +1,4 @@
-import React, {useState} from "react";
-import ReadMeEitan from "./ReadMeEitan";
+import React from "react";
 import soh3 from "../assets/SoH3.png"
 
 const imgStyle ={

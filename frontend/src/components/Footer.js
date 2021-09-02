@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React from "react"
 import SoH4 from "../assets/SoH4.png";
 import "./css/footer.css"
 

@@ -1,21 +1,21 @@
 import React, {useEffect, useState} from "react";
 import User from "../components/User";
-import {getUsers, searchProduct, searchUsersInAdmin} from "../utils/api";
-import '../components/css/admin.css';
+import {getUsers, searchUsersInAdmin} from "../utils/api";
 import {useHistory} from "react-router-dom";
 import {useUser} from "../hooks/useUser";
 import {routes} from "../routes";
+import searchIcon from '../assets/searchIcon.jpg'
 
 function Admin() {
     const history = useHistory();
     const isLogged = useUser();
 
-    if (isLogged === false){
+    if (isLogged === false) {
         console.log("User not logged in");
         history.push(routes.login);
     }
 
-    if (isLogged && isLogged.isAdmin !== true){
+    if (isLogged && isLogged.isAdmin !== true) {
         console.log("User not admin");
         history.push(routes.home);
     }
@@ -56,12 +56,16 @@ function Admin() {
 
     useEffect(getUsersFunc, []);
 
+    const imgStyle = {
+        width: "30px",
+        backgroundColor: "lightblue"
+    }
 
     return (
         <div style={centerDiv}>
-            <div class="search">
-                <input value={searchValue} onChange={(e) => setSearchValue(e.target.value) } placeholder="Search.." />
-                <button onClick={searchUsersInAdminFunc}>Search</button>
+            <div className="search">
+                <input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search.."/>
+                <button onClick={searchUsersInAdminFunc} ><img src={searchIcon} style={imgStyle}/></button>
             </div>
             {users.map(user => <User username={user.username}
                                      logins={user.logins}

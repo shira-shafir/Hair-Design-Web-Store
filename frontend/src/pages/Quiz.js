@@ -36,7 +36,7 @@ function Quiz() {
         outline: "0",
         padding: "12px",
         color: "white",
-        backgroundColor: "#232121",
+        backgroundColor: "#24b9b9",
         textAlign: "center",
         cursor: "pointer",
         width: "100%",
@@ -113,7 +113,7 @@ function Quiz() {
                     <h2>Similar products</h2>
                     <StoreGrid>
                         {ans.similar_products.map(p => <StoreTile name={p.name} price={p.price} description={p.detail}
-                                                                  image={p.image}/>)}
+                                                                  image={p.image} key={p.name}/>)}
                     </StoreGrid>
                 </div>}
             </div>}

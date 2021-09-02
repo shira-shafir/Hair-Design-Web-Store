@@ -1,9 +1,7 @@
-import React, {useEffect, useState} from "react"
+import React from "react"
 import soh3 from "../assets/SoH3.png";
-// import {useHistory, Link} from "react-router-dom";
-// import ProtectedRoute from "./ProtectedRoute";
+
 import UserButtons from "./UserButtons";
-import shoppingCart from "../assets/shoppingCart.png";
 
 function Header() {
 
@@ -16,8 +14,6 @@ function Header() {
     }
     const imgStyle = {
         width: "25%",
-        // position: "absolute",
-        // left: "40%",
         marginLeft: "700px",
         marginRight: "200px"
     }
@@ -28,15 +24,10 @@ function Header() {
             <br/>
             <br/>
             <br/>
-            {/*<ProtectedRoute path='/' component={UserButtons} />*/}
-            {/*<button onClick={() => this.constructor(super)}/>*/}
-            {/*<tag ></tag>*/}
             <UserButtons/>
         </header>
 
     );
-    // <Link to="/Login">Login</Link><text> </text>
-    // <Link to="/Register">Register</Link>*/
 }
 
 export default Header;

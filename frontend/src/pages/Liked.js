@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {addToCart, getLikedProducts, LikeorUnlike, removeFromCart} from "../utils/api";
+import {addToCart, getLikedProducts, LikeorUnlike} from "../utils/api";
 import {StoreTile} from "../components/StoreTile";
 import {StoreGrid} from "./HairCare";
 import {useHistory} from "react-router-dom";
@@ -10,7 +10,7 @@ function Liked() {
     const history = useHistory();
     const isLogged = useUser();
 
-    if (isLogged === false){
+    if (isLogged === false) {
         console.log("User not logged in");
         history.push(routes.login);
     }
@@ -64,9 +64,15 @@ function Liked() {
     return (
         <div>
             <StoreGrid>
-                {liked.map(p => <StoreTile name={p.name} description={p.detail} price={p.price} image={p.image} addToCartCallback={() => addToCartFunc(p.name)} likeCallback={() => likeOrUnlikeFunc(p.name)}/>)}
+                {liked.map(p => <StoreTile name={p.name} description={p.detail} price={p.price} image={p.image}
+                                           addToCartCallback={() => addToCartFunc(p.name)}
+                                           likeCallback={() => likeOrUnlikeFunc(p.name)}
+                                           key={p.name}
+
+                />)}
             </StoreGrid>
         </div>
     );
 }
+
 export default Liked;
