@@ -15,13 +15,14 @@ function HairCare() {
     const history = useHistory();
     const isLogged = useUser();
 
+
+    const [products, setProducts] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
+
     if (isLogged === false){
         console.log("User not logged in");
         history.push(routes.login);
     }
-
-    const [products, setProducts] = useState([]);
-    const [searchValue, setSearchValue] = useState('');
 
     const getProductsFunc = async () => {
         try {
@@ -91,7 +92,9 @@ function HairCare() {
             <StoreGrid>
                 {products.map(p => <StoreTile name={p.name} description={p.detail} price={p.price} image={p.image}
                                               addToCartCallback={() => addToCartFunc(p.name)}
-                                              likeCallback={() => likeOrUnlikeFunc(p.name)}/>)}
+                                              likeCallback={() => likeOrUnlikeFunc(p.name)}
+                                              key={p.name}
+                />)}
             </StoreGrid>
         </div>);
 }

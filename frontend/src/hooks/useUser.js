@@ -1,21 +1,37 @@
 import {useEffect, useState} from "react";
 import {getUser} from "../utils/api";
 
+let globalUser = null;
+let observers = [];
+
+const setGlobalUser = (newState) => {
+  globalUser = newState;
+  observers.forEach(update => update(globalUser));
+};
+
 export function useUser() {
-  const [user, setUser] = useState(null);
+  const [localUser, setLocalUser] = useState(globalUser);
   
   const getUserFunc = async () => {
+
+    observers.push(setLocalUser);
     try{
       const user = await getUser();
-      setUser(await user.json());
+      setGlobalUser(await user.json());
     }
     catch (e) {
-      setUser(false)
+      setGlobalUser(false)
     }
+
+
   }
 
+  useEffect(()=> {
+    getUserFunc();
+    return () => {
+      observers = observers.filter(update => update !== setLocalUser);
+    };
+  },[])
   
-  useEffect(getUserFunc,[])
-  
-  return user;
+  return localUser;
 }
