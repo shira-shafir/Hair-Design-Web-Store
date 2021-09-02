@@ -57,14 +57,20 @@ function Admin() {
     useEffect(getUsersFunc, []);
 
     const imgStyle = {
-        width: "30px",
+        width: "25px",
+        backgroundColor: "lightblue"
+    }
+    const inputStyle ={
+        fontWeight:"400",
+        borderRadius:"25px",
         backgroundColor: "lightblue"
     }
 
     return (
         <div style={centerDiv}>
+            <br/>
             <div className="search">
-                <input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search.."/>
+                <input value={searchValue} style={inputStyle} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search.."/>
                 <button onClick={searchUsersInAdminFunc} ><img src={searchIcon} style={imgStyle}/></button>
             </div>
             {users.map(user => <User username={user.username}

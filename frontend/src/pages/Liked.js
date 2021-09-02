@@ -63,6 +63,8 @@ function Liked() {
 
     return (
         <div>
+            <h5>Like things from Store or Quiz to add here!</h5>
+            <p>Press the like button to unlike</p>
             <StoreGrid>
                 {liked.map(p => <StoreTile name={p.name} description={p.detail} price={p.price} image={p.image}
                                            addToCartCallback={() => addToCartFunc(p.name)}

@@ -1,32 +1,50 @@
 import React from "react";
 
 function User(props) {
-
+    const divStyle = {
+        fontSize: "1rem",
+        margin: "7em auto",
+        // border:"blue",
+        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+        width: "50%",
+        background:"#8aaabf",
+        borderRadius:"10px",
+        position:"relative"
+    }
+    const detStyle = {
+        cursor:"pointer",
+        marginBottom:"15px"
+    }
+    const sumStyle ={
+        fontSize: "22px",
+        fontFamily:"Trebuchet MS",
+        textDecoration: "underline"
+    }
+    const h1Style = {
+        fontSize:"25px",
+        textDecoration: "underline dotted  #733F82FF"
+    }
 
     return (
-        <div>
-            <h1> {props.username}</h1>
-            <details>
-                <summary> login history:</summary>
-                <p> {props.logins} </p>
+        <div  style={divStyle}>
+            <h1 style={h1Style}> {props.username}</h1>
+            <details style={detStyle}>
+                <summary style={sumStyle}> login history:</summary>
+                <p> {props.logins} +<br/></p>
             </details>
-            <details>
-                <summary> logout history:</summary>
+            <details style={detStyle}>
+                <summary style={sumStyle}> logout history:</summary>
                 <p> {props.logouts} </p>
             </details>
-            <details>
-                <summary> add to cart:</summary>
-                <p> {props.cart} </p>
+            <details style={detStyle}>
+                <summary style={sumStyle}> add to cart (current cart):</summary>
+                <p> {props.cart} <br/></p>
+                <br/>
             </details>
 
         </div>
     );
 }
 
-// THIS IS A DESCRIPTION TAG:
-// <details>
-//     <summary> description </summary>
-//     <p> {props.details} </p>
-// </details>
 
 export default User;

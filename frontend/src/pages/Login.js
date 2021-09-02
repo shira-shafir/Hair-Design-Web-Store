@@ -13,11 +13,7 @@ function Login() {
     const [password, setPassword] = useState(undefined);
     const [rememberMe, setRememberMe] = useState(false);
 
-    if (isLogged) {
-        return (<div>
-            <h1>You are already logged in</h1>
-        </div>)
-    }
+
 
     const login = async () => {
 
@@ -39,6 +35,13 @@ function Login() {
         } catch (e) {
             alert("Unexpected Error,invalid data");
         }
+    }
+    if (isLogged) {
+        // history.push(routes.home);
+        return (<div>
+            <h1>You are already logged in</h1>
+        </div>)
+
     }
 
     return (

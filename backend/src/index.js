@@ -451,9 +451,10 @@ app.get("/likedproducts", async (req, res, next) => {
     let userIds = users.map(obj => obj.id);
     let userIndex = userIds.indexOf(userid);
     let user = users[userIndex];
-    if (user.products_liked === undefined){
-        return [];
-    }
+    // let tmp;
+    // if (user.products_liked === undefined){
+    //     user.products_liked = [];
+    // }
     res.status(200).json(user.products_liked);
 });
 
